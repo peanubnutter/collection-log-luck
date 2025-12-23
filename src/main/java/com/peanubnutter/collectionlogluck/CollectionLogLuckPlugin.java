@@ -338,6 +338,12 @@ public class CollectionLogLuckPlugin extends Plugin {
             Widget[] killCountWidgets = Arrays.copyOfRange(children, 2, children.length);
             for (Widget killCountWidget : killCountWidgets) {
                 String killCountString = killCountWidget.getText();
+
+                //Skip string for personal best time
+                if(killCountString.toLowerCase().contains("personal best")){
+                    continue;
+                }
+            
                 // The "sequence" parameter value does not matter and will be ignored.
                 CollectionLogKillCount killCount = CollectionLogKillCount.fromString(killCountString, 0);
 
