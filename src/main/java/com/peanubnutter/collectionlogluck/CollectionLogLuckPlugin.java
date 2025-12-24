@@ -392,6 +392,12 @@ public class CollectionLogLuckPlugin extends Plugin {
     // the function will call the callback immediately with a null collection log, but it will still request a
     // new collection log if an equivalent request is not already in progress.
     protected void fetchCollectionLog(String rawUsername, boolean allowAsync, Consumer<CollectionLog> callback) {
+        // Apparently this can happen rarely, according to one user's report. No idea how it is possible.
+        if (rawUsername == null) {
+            log.error("Unable to retrieve collection log: username is null");
+            callback.accept(null);
+        }
+
         final String sanitizedUsername = Text.sanitize(rawUsername);
 
         try {
