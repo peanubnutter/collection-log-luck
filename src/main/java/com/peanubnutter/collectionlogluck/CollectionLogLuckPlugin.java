@@ -341,8 +341,11 @@ public class CollectionLogLuckPlugin extends Plugin {
                 // The "sequence" parameter value does not matter and will be ignored.
                 CollectionLogKillCount killCount = CollectionLogKillCount.fromString(killCountString, 0);
 
-                // TODO: prepend the key with the player's username if ever supporting adventure log
-                seenKillCounts.put(killCount.getName(), killCount.getAmount());
+                // Collection log KC parsing can fail
+                if (killCount != null) {
+                    // TODO: prepend the key with the player's username if ever supporting adventure log
+                    seenKillCounts.put(killCount.getName(), killCount.getAmount());
+                }
             }
         }
 

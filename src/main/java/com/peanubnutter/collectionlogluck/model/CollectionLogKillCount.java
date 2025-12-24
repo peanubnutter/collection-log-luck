@@ -21,6 +21,10 @@ public class CollectionLogKillCount
 		String amount = Text.removeTags(killCountSplit[1])
 			.replace(",", "");
 
-		return new CollectionLogKillCount(name, Integer.parseInt(amount), sequence);
+		try {
+			return new CollectionLogKillCount(name, Integer.parseInt(amount), sequence);
+		} catch (NumberFormatException e) {
+			return null;
+		}
 	}
 }
