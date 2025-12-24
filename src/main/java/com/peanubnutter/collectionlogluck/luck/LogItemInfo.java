@@ -4292,17 +4292,23 @@ public class LogItemInfo {
     public static LogItemInfo CALCIFIED_ACORN_30042 = new LogItemInfo("Calcified acorn", 30042, new DeterministicDrop());
     public static LogItemInfo BROKEN_ZOMBIE_HELMET_30324 = new LogItemInfo("Broken zombie helmet", 30324, new MissingKillCountDrop());
     public static LogItemInfo PENDANT_OF_ATES_INERT__29892 = new LogItemInfo("Pendant of ates (inert)", 29892, new MissingKillCountDrop());
-    public static LogItemInfo STEEL_RING = new LogItemInfo("Steel ring",30895, new UnimplementedDrop());
+    // Technically, there should be a config option so that the user can input how many KC they had before the ring was added...
+    // but I'm feeling lazy.
+    public static LogItemInfo STEEL_RING = new LogItemInfo("Steel ring",30895,
+            new BinomialDrop(new RollInfo(LogItemSourceInfo.DERANGED_ARCHAEOLOGIST_KILLS, 1.0 / 43.67)));
     public static LogItemInfo DOM = new LogItemInfo("Dom",31130, new UnimplementedDrop());
     public static LogItemInfo AVERNIC_TREADS = new LogItemInfo("Avernic treads",31088, new UnimplementedDrop());
     public static LogItemInfo EYE_OF_AYAK_UNCHARGED = new LogItemInfo("Eye of ayak (uncharged)",31115, new UnimplementedDrop());
     public static LogItemInfo MOKHAIOTL_CLOTH = new LogItemInfo("Mokhaiotl cloth",31109, new UnimplementedDrop());
     public static LogItemInfo MOKHAIOTL_WAYSTONE = new LogItemInfo("Mokhaiotl waystone",31099, new UnimplementedDrop());
     public static LogItemInfo DEMON_TEAR = new LogItemInfo("Demon tear",31111, new UnimplementedDrop());
-    public static LogItemInfo GULL = new LogItemInfo("Gull",31285, new UnimplementedDrop());
-    public static LogItemInfo JAR_OF_FEATHERS = new LogItemInfo("Jar of feathers",32921, new UnimplementedDrop());
-    public static LogItemInfo BELLES_FOLLY_TARNISHED = new LogItemInfo("Belle's folly (tarnished)",31245, new UnimplementedDrop());
-    public static LogItemInfo GRYPHON_FEATHER = new LogItemInfo("Gryphon feather",31235, new UnimplementedDrop());
+    public static LogItemInfo GULL = new LogItemInfo("Gull",31285,
+            new BinomialDrop(new RollInfo(LogItemSourceInfo.SHELLBANE_GRYPHON_KILLS, 1.0 / 3000)));
+    public static LogItemInfo JAR_OF_FEATHERS = new LogItemInfo("Jar of feathers",32921,
+            new BinomialDrop(new RollInfo(LogItemSourceInfo.SHELLBANE_GRYPHON_KILLS, 1.0 / 2000)));
+    public static LogItemInfo BELLES_FOLLY_TARNISHED = new LogItemInfo("Belle's folly (tarnished)",31245,
+            new BinomialDrop(new RollInfo(LogItemSourceInfo.SHELLBANE_GRYPHON_KILLS, 1.0 / 400)));
+    public static LogItemInfo GRYPHON_FEATHER = new LogItemInfo("Gryphon feather",31235, new MissingKillCountDrop());
     public static LogItemInfo YAMI = new LogItemInfo("Yami",30888, new UnimplementedDrop());
     public static LogItemInfo CHASM_TELEPORT_SCROLL = new LogItemInfo("Chasm teleport scroll",30775, new UnimplementedDrop());
     public static LogItemInfo OATHPLATE_SHARDS = new LogItemInfo("Oathplate shards",30765, new UnimplementedDrop());
