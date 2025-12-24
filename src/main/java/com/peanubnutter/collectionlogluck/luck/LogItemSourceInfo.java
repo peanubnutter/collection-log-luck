@@ -26,7 +26,10 @@ public enum LogItemSourceInfo {
     DAGANNOTH_PRIME_KILLS("Dagannoth Prime kills"),
     DAGANNOTH_REX_KILLS("Dagannoth Rex kills"),
     DAGANNOTH_SUPREME_KILLS("Dagannoth Supreme kills"),
+    DEEP_DELVES("Deep delves"),
+    DEEPEST_DELVE("Deepest delve"),
     DEMONIC_GORILLA_KILLS("Demonic Gorilla kills"),
+    DERANGED_ARCHAEOLOGIST_KILLS("Deranged Archaeologist kills"),
     DUKE_SUCELLUS_KILLS("Duke Sucellus kills"),
     EASY_CLUES_COMPLETED("Easy clues completed"),
     ELITE_CLUES_COMPLETED("Elite clues completed"),
@@ -74,6 +77,7 @@ public enum LogItemSourceInfo {
     SARACHNIS_KILLS("Sarachnis kills"),
     SCORPIA_KILLS("Scorpia kills"),
     SCURRIUS_KILLS("Scurrius kills"),
+    SHELLBANE_GRYPHON_KILLS("Shellbane Gryphon kills"),
     SKOTIZO_KILLS("Skotizo kills"),
     SOL_HEREDIT_KILLS("Sol Heredit kills"),
     SPINDEL_KILLS("Spindel kills"),
@@ -92,6 +96,7 @@ public enum LogItemSourceInfo {
     TORMENTED_DEMON_KILLS("Tormented Demon kills"),
     TORTURED_GORILLA_KILLS("Tortured Gorilla kills"),
     TOTAL_CLUES_COMPLETED("Total clues completed"),
+    TOTAL_DELVES("Total delves"),
     TZKAL_ZUK_KILLS("TzKal-Zuk kills"),
     TZTOK_JAD_KILLS("TzTok-Jad kills"),
     VARDORVIS_KILLS("Vardorvis kills"),
@@ -100,9 +105,9 @@ public enum LogItemSourceInfo {
     VORKATH_KILLS("Vorkath kills"),
     WHISPERER_KILLS("Whisperer kills"),
     WINTERTODT_KILLS("Wintertodt kills"),
+    YAMA_KILLS("Yama kills"),
     ZALCANO_KILLS("Zalcano kills"),
     ZULRAH_KILLS("Zulrah kills");
-
 
     private final String name;
 

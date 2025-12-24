@@ -76,9 +76,10 @@ public class CollectionLogLuckPlugin extends Plugin {
             "CLog Luck - warning: collectionlog.net has shut down. Text commands are disabled until further notice.";
 
     // Make sure to update this version to show the plugin message below.
-    private final String pluginVersion = "v1.2.1";
+    private final String pluginVersion = "v1.2.2";
     private final String pluginMessage = "<colHIGHLIGHT>Collection Log Luck " + pluginVersion + ":<br>" +
-            "<colHIGHLIGHT>* collectionlog.net has shut down. Text commands are disabled until further notice.<br>";
+            "<colHIGHLIGHT>* Fixed broken luck calculations<br>" +
+            "<colHIGHLIGHT>* Support Shellbane Gryphon and Steel Ring<br>";
 
     private Map<Integer, Integer> loadedCollectionLogIcons;
 
@@ -328,6 +329,16 @@ public class CollectionLogLuckPlugin extends Plugin {
             boolean isObtained = widgetItem.getOpacity() == 0;
             int quantity = isObtained ? widgetItem.getItemQuantity() : 0;
 
+//            // Uncomment to update LogItemInfo list
+//            // Example: (Farmer's shirt,13643)
+//            String newItemName = itemDisplayNameToItemName(widgetItem.getName());
+//            LogItemInfo logItemInfo = LogItemInfo.findByName(newItemName);
+//            if (logItemInfo == null) {
+//                // import org.slf4j.* for these to work
+//                Logger logger = LoggerFactory.getLogger(CollectionLogDeserializer.class);
+//                logger.error("New collection log item detected!:(" + newItemName + "," + widgetItem.getItemId() + ")");
+//            }
+
             // TODO: prepend the key with the player's username if ever supporting adventure log
             seenItemCounts.put(widgetItem.getItemId(), quantity);
         }
@@ -337,12 +348,15 @@ public class CollectionLogLuckPlugin extends Plugin {
         if (children.length >= 3) {
             Widget[] killCountWidgets = Arrays.copyOfRange(children, 2, children.length);
             for (Widget killCountWidget : killCountWidgets) {
-                String killCountString = killCountWidget.getText();
+                String killCountString = Text.removeTags(killCountWidget.getText());
                 // The "sequence" parameter value does not matter and will be ignored.
                 CollectionLogKillCount killCount = CollectionLogKillCount.fromString(killCountString, 0);
 
-                // TODO: prepend the key with the player's username if ever supporting adventure log
-                seenKillCounts.put(killCount.getName(), killCount.getAmount());
+                // Collection log KC parsing can fail
+                if (killCount != null) {
+                    // TODO: prepend the key with the player's username if ever supporting adventure log
+                    seenKillCounts.put(killCount.getName(), killCount.getAmount());
+                }
             }
         }
 
@@ -378,6 +392,12 @@ public class CollectionLogLuckPlugin extends Plugin {
     // the function will call the callback immediately with a null collection log, but it will still request a
     // new collection log if an equivalent request is not already in progress.
     protected void fetchCollectionLog(String rawUsername, boolean allowAsync, Consumer<CollectionLog> callback) {
+        // Apparently this can happen rarely, according to one user's report. No idea how it is possible.
+        if (rawUsername == null) {
+            log.error("Unable to retrieve collection log: username is null");
+            callback.accept(null);
+        }
+
         final String sanitizedUsername = Text.sanitize(rawUsername);
 
         try {
@@ -616,7 +636,8 @@ public class CollectionLogLuckPlugin extends Plugin {
      * @param itemDisplayName An item's display name which
      * @return The item's true name regardless of membership status
      */
-    private String itemDisplayNameToItemName(String itemDisplayName) {
+    public String itemDisplayNameToItemName(String rawItemDisplayName) {
+        String itemDisplayName = Text.removeTags(rawItemDisplayName);
         for (int i = 0; i < client.getItemCount(); i++) {
             ItemComposition itemComposition = client.getItemDefinition(i);
             if (itemComposition.getName().equalsIgnoreCase(itemDisplayName)) {

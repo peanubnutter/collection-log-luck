@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-// All 1568 collection log items as of 2/7/2025 and a mapping to their item IDs and drop mechanics / probabilities.
+// All 1692 collection log items as of 12/23/2025 and a mapping to their item IDs and drop mechanics / probabilities.
 public class LogItemInfo {
 
     // case-insensitive map, just in case
@@ -4292,7 +4292,136 @@ public class LogItemInfo {
     public static LogItemInfo CALCIFIED_ACORN_30042 = new LogItemInfo("Calcified acorn", 30042, new DeterministicDrop());
     public static LogItemInfo BROKEN_ZOMBIE_HELMET_30324 = new LogItemInfo("Broken zombie helmet", 30324, new MissingKillCountDrop());
     public static LogItemInfo PENDANT_OF_ATES_INERT__29892 = new LogItemInfo("Pendant of ates (inert)", 29892, new MissingKillCountDrop());
-
+    // Technically, there should be a config option so that the user can input how many KC they had before the ring was added...
+    // but I'm feeling lazy.
+    public static LogItemInfo STEEL_RING = new LogItemInfo("Steel ring",30895,
+            new BinomialDrop(new RollInfo(LogItemSourceInfo.DERANGED_ARCHAEOLOGIST_KILLS, 1.0 / 43.67)));
+    public static LogItemInfo DOM = new LogItemInfo("Dom",31130, new UnimplementedDrop());
+    public static LogItemInfo AVERNIC_TREADS = new LogItemInfo("Avernic treads",31088, new UnimplementedDrop());
+    public static LogItemInfo EYE_OF_AYAK_UNCHARGED = new LogItemInfo("Eye of ayak (uncharged)",31115, new UnimplementedDrop());
+    public static LogItemInfo MOKHAIOTL_CLOTH = new LogItemInfo("Mokhaiotl cloth",31109, new UnimplementedDrop());
+    public static LogItemInfo MOKHAIOTL_WAYSTONE = new LogItemInfo("Mokhaiotl waystone",31099, new UnimplementedDrop());
+    public static LogItemInfo DEMON_TEAR = new LogItemInfo("Demon tear",31111, new UnimplementedDrop());
+    public static LogItemInfo GULL = new LogItemInfo("Gull",31285,
+            new BinomialDrop(new RollInfo(LogItemSourceInfo.SHELLBANE_GRYPHON_KILLS, 1.0 / 3000)));
+    public static LogItemInfo JAR_OF_FEATHERS = new LogItemInfo("Jar of feathers",32921,
+            new BinomialDrop(new RollInfo(LogItemSourceInfo.SHELLBANE_GRYPHON_KILLS, 1.0 / 2000)));
+    public static LogItemInfo BELLES_FOLLY_TARNISHED = new LogItemInfo("Belle's folly (tarnished)",31245,
+            new BinomialDrop(new RollInfo(LogItemSourceInfo.SHELLBANE_GRYPHON_KILLS, 1.0 / 400)));
+    public static LogItemInfo GRYPHON_FEATHER = new LogItemInfo("Gryphon feather",31235, new MissingKillCountDrop());
+    public static LogItemInfo YAMI = new LogItemInfo("Yami",30888, new UnimplementedDrop());
+    public static LogItemInfo CHASM_TELEPORT_SCROLL = new LogItemInfo("Chasm teleport scroll",30775, new UnimplementedDrop());
+    public static LogItemInfo OATHPLATE_SHARDS = new LogItemInfo("Oathplate shards",30765, new UnimplementedDrop());
+    public static LogItemInfo OATHPLATE_HELM = new LogItemInfo("Oathplate helm",30750, new UnimplementedDrop());
+    public static LogItemInfo OATHPLATE_CHEST = new LogItemInfo("Oathplate chest",30753, new UnimplementedDrop());
+    public static LogItemInfo OATHPLATE_LEGS = new LogItemInfo("Oathplate legs",30756, new UnimplementedDrop());
+    public static LogItemInfo SOULFLAME_HORN = new LogItemInfo("Soulflame horn",30759, new UnimplementedDrop());
+    public static LogItemInfo RITE_OF_VILE_TRANSFERENCE = new LogItemInfo("Rite of vile transference",30806, new UnimplementedDrop());
+    public static LogItemInfo FORGOTTEN_LOCKBOX = new LogItemInfo("Forgotten lockbox",30763, new UnimplementedDrop());
+    public static LogItemInfo DOSSIER = new LogItemInfo("Dossier",30805, new UnimplementedDrop());
+    public static LogItemInfo BARREL_OF_DEMONIC_TALLOW_FULL = new LogItemInfo("Barrel of demonic tallow (full)",30795, new UnimplementedDrop());
+    public static LogItemInfo JEWEL_OF_AMASCUT = new LogItemInfo("Jewel of amascut",30893, new UnimplementedDrop());
+    public static LogItemInfo MINOR_BEGINNER_SCROLL_CASE = new LogItemInfo("Minor beginner scroll case",30902, new DeterministicDrop());
+    public static LogItemInfo MAJOR_BEGINNER_SCROLL_CASE = new LogItemInfo("Major beginner scroll case",30904, new DeterministicDrop());
+    public static LogItemInfo MINOR_EASY_SCROLL_CASE = new LogItemInfo("Minor easy scroll case",30906, new DeterministicDrop());
+    public static LogItemInfo MAJOR_EASY_SCROLL_CASE = new LogItemInfo("Major easy scroll case",30908, new DeterministicDrop());
+    public static LogItemInfo MINOR_MEDIUM_SCROLL_CASE = new LogItemInfo("Minor medium scroll case",30910, new DeterministicDrop());
+    public static LogItemInfo MAJOR_MEDIUM_SCROLL_CASE = new LogItemInfo("Major medium scroll case",30912, new DeterministicDrop());
+    public static LogItemInfo MINOR_HARD_SCROLL_CASE = new LogItemInfo("Minor hard scroll case",30914, new DeterministicDrop());
+    public static LogItemInfo MAJOR_HARD_SCROLL_CASE = new LogItemInfo("Major hard scroll case",30916, new DeterministicDrop());
+    public static LogItemInfo MINOR_ELITE_SCROLL_CASE = new LogItemInfo("Minor elite scroll case",30918, new DeterministicDrop());
+    public static LogItemInfo MAJOR_ELITE_SCROLL_CASE = new LogItemInfo("Major elite scroll case",30920, new DeterministicDrop());
+    public static LogItemInfo MINOR_MASTER_SCROLL_CASE = new LogItemInfo("Minor master scroll case",30922, new DeterministicDrop());
+    public static LogItemInfo MAJOR_MASTER_SCROLL_CASE = new LogItemInfo("Major master scroll case",30924, new DeterministicDrop());
+    public static LogItemInfo MIMIC_SCROLL_CASE = new LogItemInfo("Mimic scroll case",30926, new DeterministicDrop());
+    public static LogItemInfo STORMY_KEY = new LogItemInfo("Stormy key",31732, new DeterministicDrop());
+    public static LogItemInfo BARREL_STAND = new LogItemInfo("Barrel stand",31733, new DeterministicDrop());
+    public static LogItemInfo RALPHS_FABRIC_ROLL = new LogItemInfo("Ralph's fabric roll",31734, new DeterministicDrop());
+    public static LogItemInfo FETID_KEY = new LogItemInfo("Fetid key",31744, new DeterministicDrop());
+    public static LogItemInfo CAPTURED_WIND_MOTE = new LogItemInfo("Captured wind mote",31745, new UnimplementedDrop());
+    public static LogItemInfo GURTOBS_FABRIC_ROLL = new LogItemInfo("Gurtob's fabric roll",31746, new DeterministicDrop());
+    public static LogItemInfo SERRATED_KEY = new LogItemInfo("Serrated key",31756, new DeterministicDrop());
+    public static LogItemInfo HEART_OF_ITHELL = new LogItemInfo("Heart of ithell",31757, new DeterministicDrop());
+    public static LogItemInfo GWYNAS_FABRIC_ROLL = new LogItemInfo("Gwyna's fabric roll",31758, new DeterministicDrop());
+    public static LogItemInfo FLETCHING_KNIFE = new LogItemInfo("Fletching knife",31043, new MissingKillCountDrop());
+    public static LogItemInfo BOW_STRING_SPOOL = new LogItemInfo("Bow string spool",31052, new MissingKillCountDrop());
+    public static LogItemInfo ENT_BRANCH = new LogItemInfo("Ent branch",31032, new MissingKillCountDrop());
+    public static LogItemInfo GREENMAN_MASK = new LogItemInfo("Greenman mask",31034, new MissingKillCountDrop());
+    public static LogItemInfo SOUP = new LogItemInfo("Soup",31283, new MissingKillCountDrop());
+    public static LogItemInfo BARRACUDA_PAINT = new LogItemInfo("Barracuda paint",32087, new MissingKillCountDrop());
+    public static LogItemInfo SHARK_PAINT = new LogItemInfo("Shark paint",32090, new MissingKillCountDrop());
+    public static LogItemInfo INKY_PAINT = new LogItemInfo("Inky paint",32093, new MissingKillCountDrop());
+    public static LogItemInfo ANGLERS_PAINT = new LogItemInfo("Angler's paint",32096, new MissingKillCountDrop());
+    public static LogItemInfo SALVORS_PAINT = new LogItemInfo("Salvor's paint",32099, new MissingKillCountDrop());
+    public static LogItemInfo ARMADYLEAN_PAINT = new LogItemInfo("Armadylean paint",32102, new DeterministicDrop());
+    public static LogItemInfo ZAMORAKIAN_PAINT = new LogItemInfo("Zamorakian paint",32104, new DeterministicDrop());
+    public static LogItemInfo GUTHIXIAN_PAINT = new LogItemInfo("Guthixian paint",32106, new DeterministicDrop());
+    public static LogItemInfo SARADOMINIST_PAINT = new LogItemInfo("Saradominist paint",32108, new DeterministicDrop());
+    public static LogItemInfo MERCHANTS_PAINT = new LogItemInfo("Merchant's paint",32110, new DeterministicDrop());
+    public static LogItemInfo SANDY_PAINT = new LogItemInfo("Sandy paint",32113, new DeterministicDrop());
+    public static LogItemInfo SALVAGING_STATION_SCHEMATIC = new LogItemInfo("Salvaging station schematic",32401, new DeterministicDrop());
+    public static LogItemInfo GALE_CATCHER_SCHEMATIC = new LogItemInfo("Gale catcher schematic",32402, new DeterministicDrop());
+    public static LogItemInfo ETERNAL_BRAZIER_SCHEMATIC = new LogItemInfo("Eternal brazier schematic",32403, new DeterministicDrop());
+    public static LogItemInfo ROSEWOOD_CARGO_HOLD_SCHEMATIC = new LogItemInfo("Rosewood cargo hold schematic",32405, new DeterministicDrop());
+    public static LogItemInfo ROSEWOOD_HULL_SCHEMATIC = new LogItemInfo("Rosewood hull schematic",32407, new DeterministicDrop());
+    public static LogItemInfo ROSEWOOD_COTTON_SAILS_SCHEMATIC = new LogItemInfo("Rosewood & cotton sails schematic",32408, new DeterministicDrop());
+    public static LogItemInfo DRAGON_HELM_SCHEMATIC = new LogItemInfo("Dragon helm schematic",32409, new DeterministicDrop());
+    public static LogItemInfo DRAGON_KEEL_SCHEMATIC = new LogItemInfo("Dragon keel schematic",32410, new DeterministicDrop());
+    public static LogItemInfo DRAGON_SALVAGING_HOOK_SCHEMATIC = new LogItemInfo("Dragon salvaging hook schematic",32404, new DeterministicDrop());
+    public static LogItemInfo DRAGON_CANNON_SCHEMATIC = new LogItemInfo("Dragon cannon schematic",32406, new DeterministicDrop());
+    public static LogItemInfo TINY_PEARL = new LogItemInfo("Tiny pearl",31770, new DeterministicDrop());
+    public static LogItemInfo SMALL_PEARL = new LogItemInfo("Small pearl",31773, new DeterministicDrop());
+    public static LogItemInfo SHINY_PEARL = new LogItemInfo("Shiny pearl",31776, new DeterministicDrop());
+    public static LogItemInfo BRIGHT_PEARL = new LogItemInfo("Bright pearl",31779, new DeterministicDrop());
+    public static LogItemInfo BIG_PEARL = new LogItemInfo("Big pearl",31782, new DeterministicDrop());
+    public static LogItemInfo HUGE_PEARL = new LogItemInfo("Huge pearl",31785, new DeterministicDrop());
+    public static LogItemInfo ENORMOUS_PEARL = new LogItemInfo("Enormous pearl",31788, new DeterministicDrop());
+    public static LogItemInfo SHIMMERING_PEARL = new LogItemInfo("Shimmering pearl",31791, new DeterministicDrop());
+    public static LogItemInfo GLISTENING_PEARL = new LogItemInfo("Glistening pearl",31794, new DeterministicDrop());
+    public static LogItemInfo BRILLIANT_PEARL = new LogItemInfo("Brilliant pearl",31797, new DeterministicDrop());
+    public static LogItemInfo RADIANT_PEARL = new LogItemInfo("Radiant pearl",31800, new DeterministicDrop());
+    public static LogItemInfo DRAGON_METAL_SHEET = new LogItemInfo("Dragon metal sheet",31996, new MissingKillCountDrop());
+    public static LogItemInfo DRAGON_NAILS = new LogItemInfo("Dragon nails",31406, new MissingKillCountDrop());
+    public static LogItemInfo DRAGON_CANNONBALL = new LogItemInfo("Dragon cannonball",31916, new MissingKillCountDrop());
+    public static LogItemInfo ECHO_PEARL = new LogItemInfo("Echo pearl",31946, new MissingKillCountDrop());
+    public static LogItemInfo SWIFT_ALBATROSS_FEATHER = new LogItemInfo("Swift albatross feather",31952, new MissingKillCountDrop());
+    public static LogItemInfo NARWHAL_HORN = new LogItemInfo("Narwhal horn",31954, new MissingKillCountDrop());
+    public static LogItemInfo RAY_BARBS = new LogItemInfo("Ray barbs",31959, new MissingKillCountDrop());
+    public static LogItemInfo BROKEN_DRAGON_HOOK = new LogItemInfo("Broken dragon hook",31961, new MissingKillCountDrop());
+    public static LogItemInfo BOTTLED_STORM = new LogItemInfo("Bottled storm",31949, new MissingKillCountDrop());
+    public static LogItemInfo DRAGON_CANNON_BARREL = new LogItemInfo("Dragon cannon barrel",32115, new MissingKillCountDrop());
+    public static LogItemInfo BOAT_BOTTLE_EMPTY = new LogItemInfo("Boat bottle (empty)",31989, new MissingKillCountDrop());
+    public static LogItemInfo MEDALLION_FRAGMENT_32388 = new LogItemInfo("Medallion fragment",32388, new DeterministicDrop());
+    public static LogItemInfo MEDALLION_FRAGMENT_32389 = new LogItemInfo("Medallion fragment",32389, new DeterministicDrop());
+    public static LogItemInfo MEDALLION_FRAGMENT_32390 = new LogItemInfo("Medallion fragment",32390, new DeterministicDrop());
+    public static LogItemInfo MEDALLION_FRAGMENT_32391 = new LogItemInfo("Medallion fragment",32391, new DeterministicDrop());
+    public static LogItemInfo MEDALLION_FRAGMENT_32392 = new LogItemInfo("Medallion fragment",32392, new DeterministicDrop());
+    public static LogItemInfo MEDALLION_FRAGMENT_32393 = new LogItemInfo("Medallion fragment",32393, new DeterministicDrop());
+    public static LogItemInfo MEDALLION_FRAGMENT_32394 = new LogItemInfo("Medallion fragment",32394, new DeterministicDrop());
+    public static LogItemInfo MEDALLION_FRAGMENT_32395 = new LogItemInfo("Medallion fragment",32395, new DeterministicDrop());
+    public static LogItemInfo SAILORS_AMULET_INERT = new LogItemInfo("Sailors' amulet (inert)",32398, new MissingKillCountDrop());
+    public static LogItemInfo RUSTY_LOCKET = new LogItemInfo("Rusty locket",32863, new MissingKillCountDrop());
+    public static LogItemInfo MOULDY_BLOCK = new LogItemInfo("Mouldy block",32864, new MissingKillCountDrop());
+    public static LogItemInfo DULL_KNIFE = new LogItemInfo("Dull knife",32865, new MissingKillCountDrop());
+    public static LogItemInfo BROKEN_COMPASS = new LogItemInfo("Broken compass",32866, new MissingKillCountDrop());
+    public static LogItemInfo RUSTY_COIN = new LogItemInfo("Rusty coin",32867, new MissingKillCountDrop());
+    public static LogItemInfo BROKEN_SEXTANT = new LogItemInfo("Broken sextant",32868, new MissingKillCountDrop());
+    public static LogItemInfo MOULDY_DOLL = new LogItemInfo("Mouldy doll",32869, new MissingKillCountDrop());
+    public static LogItemInfo SMASHED_MIRROR = new LogItemInfo("Smashed mirror",32870, new MissingKillCountDrop());
+    public static LogItemInfo AQUANITE_TENDON = new LogItemInfo("Aquanite tendon",32876, new MissingKillCountDrop());
+    public static LogItemInfo EARTHBOUND_TECPATL = new LogItemInfo("Earthbound tecpatl",30957, new MissingKillCountDrop());
+    public static LogItemInfo ANTLER_GUARD = new LogItemInfo("Antler guard",31081, new MissingKillCountDrop());
+    public static LogItemInfo ALCHEMISTS_SIGNET = new LogItemInfo("Alchemist's signet",31084, new MissingKillCountDrop());
+    public static LogItemInfo BROKEN_ANTLER = new LogItemInfo("Broken antler",31086, new MissingKillCountDrop());
+    public static LogItemInfo HORN_OF_PLENTY_EMPTY = new LogItemInfo("Horn of plenty (empty)",31243, new MissingKillCountDrop());
+    public static LogItemInfo GIANT_BLUE_KRILL = new LogItemInfo("Giant blue krill",31408, new MissingKillCountDrop());
+    public static LogItemInfo GOLDEN_HADDOCK = new LogItemInfo("Golden haddock",31412, new MissingKillCountDrop());
+    public static LogItemInfo ORANGEFIN = new LogItemInfo("Orangefin",31416, new MissingKillCountDrop());
+    public static LogItemInfo HUGE_HALIBUT = new LogItemInfo("Huge halibut",31420, new MissingKillCountDrop());
+    public static LogItemInfo PURPLEFIN = new LogItemInfo("Purplefin",31424, new MissingKillCountDrop());
+    public static LogItemInfo SWIFT_MARLIN = new LogItemInfo("Swift marlin",31428, new MissingKillCountDrop());
+    public static LogItemInfo HELMET_OF_THE_MOON = new LogItemInfo("Helmet of the moon",30111, new MissingKillCountDrop());
+    public static LogItemInfo SQUID_BEAK = new LogItemInfo("Squid beak",31572, new MissingKillCountDrop());
 
     private final String itemName;
     private final int itemId;
