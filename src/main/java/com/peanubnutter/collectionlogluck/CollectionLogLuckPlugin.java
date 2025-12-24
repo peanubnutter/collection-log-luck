@@ -328,6 +328,16 @@ public class CollectionLogLuckPlugin extends Plugin {
             boolean isObtained = widgetItem.getOpacity() == 0;
             int quantity = isObtained ? widgetItem.getItemQuantity() : 0;
 
+//            // Uncomment to update LogItemInfo list
+//            // Example: (Farmer's shirt,13643)
+//            String newItemName = itemDisplayNameToItemName(widgetItem.getName());
+//            LogItemInfo logItemInfo = LogItemInfo.findByName(newItemName);
+//            if (logItemInfo == null) {
+//                // import org.slf4j.* for these to work
+//                Logger logger = LoggerFactory.getLogger(CollectionLogDeserializer.class);
+//                logger.error("New collection log item detected!:(" + newItemName + "," + widgetItem.getItemId() + ")");
+//            }
+
             // TODO: prepend the key with the player's username if ever supporting adventure log
             seenItemCounts.put(widgetItem.getItemId(), quantity);
         }
@@ -337,7 +347,7 @@ public class CollectionLogLuckPlugin extends Plugin {
         if (children.length >= 3) {
             Widget[] killCountWidgets = Arrays.copyOfRange(children, 2, children.length);
             for (Widget killCountWidget : killCountWidgets) {
-                String killCountString = killCountWidget.getText();
+                String killCountString = Text.removeTags(killCountWidget.getText());
                 // The "sequence" parameter value does not matter and will be ignored.
                 CollectionLogKillCount killCount = CollectionLogKillCount.fromString(killCountString, 0);
 
@@ -619,7 +629,8 @@ public class CollectionLogLuckPlugin extends Plugin {
      * @param itemDisplayName An item's display name which
      * @return The item's true name regardless of membership status
      */
-    private String itemDisplayNameToItemName(String itemDisplayName) {
+    public String itemDisplayNameToItemName(String rawItemDisplayName) {
+        String itemDisplayName = Text.removeTags(rawItemDisplayName);
         for (int i = 0; i < client.getItemCount(); i++) {
             ItemComposition itemComposition = client.getItemDefinition(i);
             if (itemComposition.getName().equalsIgnoreCase(itemDisplayName)) {

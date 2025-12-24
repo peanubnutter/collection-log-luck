@@ -40,8 +40,8 @@ public class CollectionLogDeserializer implements JsonDeserializer<CollectionLog
                 for (JsonElement item : page.get(COLLECTION_LOG_ITEMS_KEY).getAsJsonArray()) {
                     CollectionLogItem newItem = context.deserialize(item, CollectionLogItem.class);
 
-                    // Uncomment to update LogItemInfo list
-                    // Example: (Farmer's shirt,13643)
+//                  // Uncomment to update LogItemInfo list
+//                  // Example: (Farmer's shirt,13643)
 //                    LogItemInfo logItemInfo = LogItemInfo.findByName(newItem.getName());
 //                    if (logItemInfo == null) {
 //                        // import org.slf4j.* for these to work
@@ -64,10 +64,10 @@ public class CollectionLogDeserializer implements JsonDeserializer<CollectionLog
                         newKillCount = context.deserialize(killCount, CollectionLogKillCount.class);
                         newKillCounts.add(newKillCount);
 
-                        // Uncomment to update LogItemSourceInfo list
+//                        // Uncomment to update LogItemSourceInfo list
 //                        LogItemSourceInfo logItemSourceInfo = LogItemSourceInfo.findByName(newKillCount.getName());
 //                        if (logItemSourceInfo == null) {
-                              // import org.slf4j.* for these to work
+//                             // import org.slf4j.* for these to work
 //                            Logger logger = LoggerFactory.getLogger(CollectionLogDeserializer.class);
 //                            logger.error("!!!!!!!!!!New collection log page detected!: (" + newKillCount.getName() + ")");
 //                        }

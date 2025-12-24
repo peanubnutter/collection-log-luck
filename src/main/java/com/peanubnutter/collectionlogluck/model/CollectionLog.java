@@ -3,6 +3,7 @@ package com.peanubnutter.collectionlogluck.model;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import net.runelite.client.util.Text;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
@@ -90,10 +91,13 @@ public class CollectionLog
             int highestSeen = Integer.MIN_VALUE;
             CollectionLogKillCount best = null;
 
+            // This code is usually not necessary, but just in case a KC appears on multiple pages (might happen rarely
+            // with clues or something else), take the highest value seen.
             for (CollectionLogTab tab : tabs.values()) {
                 for (CollectionLogPage page : tab.getPages().values()) {
                     for (CollectionLogKillCount killCount : page.getKillCounts()) {
-                        if (killCountName.equalsIgnoreCase(killCount.getName())) {
+                        String strippedKc = Text.removeTags(killCount.getName());
+                        if (killCountName.equalsIgnoreCase(strippedKc)) {
                             if (killCount.getAmount() > highestSeen) {
                                 highestSeen = killCount.getAmount();
                                 best = killCount;
@@ -102,6 +106,14 @@ public class CollectionLog
                     }
                 }
             }
+
+//            // Uncomment this code to print any missing entries from LogItemSourceInfo list
+//            LogItemSourceInfo logItemSourceInfo = LogItemSourceInfo.findByName(killCountName);
+//            if (logItemSourceInfo == null) {
+//                // import org.slf4j.* for these to work
+//                Logger logger = LoggerFactory.getLogger(CollectionLog.class);
+//                logger.error("!!!!!!!!!!New collection log page detected!: (" + killCountName + ")");
+//            }
 
             collectionLogKillCountCache.put(killCountName, best);
         }
