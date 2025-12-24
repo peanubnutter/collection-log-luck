@@ -76,9 +76,10 @@ public class CollectionLogLuckPlugin extends Plugin {
             "CLog Luck - warning: collectionlog.net has shut down. Text commands are disabled until further notice.";
 
     // Make sure to update this version to show the plugin message below.
-    private final String pluginVersion = "v1.2.1";
+    private final String pluginVersion = "v1.2.2";
     private final String pluginMessage = "<colHIGHLIGHT>Collection Log Luck " + pluginVersion + ":<br>" +
-            "<colHIGHLIGHT>* collectionlog.net has shut down. Text commands are disabled until further notice.<br>";
+            "<colHIGHLIGHT>* Fixed broken luck calculations<br>" +
+            "<colHIGHLIGHT>* Support Shellbane Gryphon and Steel Ring<br>";
 
     private Map<Integer, Integer> loadedCollectionLogIcons;
 

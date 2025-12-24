@@ -52,7 +52,7 @@ public interface CollectionLogLuckConfig extends Config
 	String REPLACE_PERCENTILE_WITH_DRYCALC_NUMBER_KEY = "replace_percentile_with_drycalc_number";
 
 	// Used in GET request to collectionlog.net. Should be up-to-date with collection log plugin updates.
-	String COLLECTION_LOG_VERSION = "3.1.3";
+	String COLLECTION_LOG_VERSION = "3.1.4";
 
 	@ConfigSection(
 		name = "Appearance",
