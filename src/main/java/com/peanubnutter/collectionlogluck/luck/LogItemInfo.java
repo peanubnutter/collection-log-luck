@@ -4422,6 +4422,17 @@ public class LogItemInfo {
     public static LogItemInfo SWIFT_MARLIN = new LogItemInfo("Swift marlin",31428, new MissingKillCountDrop());
     public static LogItemInfo HELMET_OF_THE_MOON = new LogItemInfo("Helmet of the moon",30111, new MissingKillCountDrop());
     public static LogItemInfo SQUID_BEAK = new LogItemInfo("Squid beak",31572, new MissingKillCountDrop());
+    public static LogItemInfo MOOLETA_33101  = new LogItemInfo("Mooleta", 33101,
+            new BinomialDrop(new RollInfo(LogItemSourceInfo.BRUTUS_KILLS, 1.0 / 30, 1 )));
+    public static LogItemInfo BOTTOMLESS_MILK_BUCKET_EMPTY_33091 = new LogItemInfo("Bottomless milk bucket (empty)", 33091,
+            new BinomialDrop(new RollInfo(LogItemSourceInfo.BRUTUS_KILLS, 1.0 / 37.5, 1)));
+    public static LogItemInfo COW_SLIPPERS_33093 = new LogItemInfo("Cow slippers", 33093,
+            new BinomialDrop(new RollInfo(LogItemSourceInfo.BRUTUS_KILLS, 1.0 / 150, 1)));
+    public static LogItemInfo BEEF_33124 = new LogItemInfo("Beef", 33124,
+            new PoissonBinomialDrop(ImmutableList.of(
+                    new RollInfo(LogItemSourceInfo.BRUTUS_KILLS, 1.0 / 1000, 1),
+                    new RollInfo(LogItemSourceInfo.DEMONIC_BRUTUS_KILLS, 1.0 / 400, 1)
+            )));
 
     private final String itemName;
     private final int itemId;
