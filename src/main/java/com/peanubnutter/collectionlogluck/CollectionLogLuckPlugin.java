@@ -73,10 +73,11 @@ public class CollectionLogLuckPlugin extends Plugin {
             "CLog Luck - warning: collectionlog.net has shut down. Text commands are disabled until further notice.";
 
     // Make sure to update this version to show the plugin message below.
-    private final String pluginVersion = "v1.2.2";
+    private final String pluginVersion = "v1.2.3";
     private final String pluginMessage = "<colHIGHLIGHT>Collection Log Luck " + pluginVersion + ":<br>" +
-            "<colHIGHLIGHT>* Fixed broken luck calculations<br>" +
-            "<colHIGHLIGHT>* Support Shellbane Gryphon and Steel Ring<br>";
+            "<colHIGHLIGHT>* Update Shellbane Gryphon drop rates<br>" +
+            "<colHIGHLIGHT>* Support Brutus drops and Pristine Spider Silk<br>" +
+            "<colHIGHLIGHT>* Configure your KC in the settings panel.<br>";
 
     private Map<Integer, Integer> loadedCollectionLogIcons;
 
