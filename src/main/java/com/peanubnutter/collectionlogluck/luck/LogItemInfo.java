@@ -35,7 +35,7 @@ public class LogItemInfo {
                     new RollInfo(LogItemSourceInfo.MASTER_CLUES_COMPLETED, 1.0 / 149_776, 6)
             ))),
         ...KEY_MASTER_TELEPORT_13249 = new LogItemInfo("Key master teleport", 13249,
-            new FixedStackDrop(new RollInfo(LogItemSourceInfo.CERBERUS_KILLS, 1.0 / 64), 3)),
+            new FixedStackDrop(new RollInfo(LogItemSourceInfo.CERBERUS_KILLS, 1.0 / 65), 7)),
         ...VETION_JR_13179 = new LogItemInfo("Vet'ion jr.", 13179,
             new UnimplementedDrop()),
         ...VORKATHS_HEAD_21907 = new LogItemInfo("Vorkath's head", 21907,
@@ -2271,7 +2271,12 @@ public class LogItemInfo {
     public static LogItemInfo KBD_HEADS_7980 = new LogItemInfo("Kbd heads", 7980,
             new BinomialDrop(new RollInfo(LogItemSourceInfo.KING_BLACK_DRAGON_KILLS, 1.0 / 128)));
     public static LogItemInfo KEY_MASTER_TELEPORT_13249 = new LogItemInfo("Key master teleport", 13249,
-            new FixedStackDrop(new RollInfo(LogItemSourceInfo.CERBERUS_KILLS, 1.0 / 64), 3));
+            // TODO: These were updated from a stackSize of 3 to a stackSize of 7, but I don't have a config option
+            // to track the KC before / after. For now, I'll just update the drop rate to 7 but know that this is
+            // inaccurate.
+            // I'd have to have a version of PoissonBinomialDrop that works with fixed stack sizes... of multiple
+            // different sizes... just for this 1 item. Not bothering to fix this for now.
+            new FixedStackDrop(new RollInfo(LogItemSourceInfo.CERBERUS_KILLS, 1.0 / 65), 7));
     public static LogItemInfo KODAI_INSIGNIA_21043 = new LogItemInfo("Kodai insignia", 21043,
             new PoissonBinomialDrop(ImmutableList.of(
                     new RollInfo(LogItemSourceInfo.CHAMBERS_OF_XERIC_COMPLETIONS, 1.0 / 34.5),
