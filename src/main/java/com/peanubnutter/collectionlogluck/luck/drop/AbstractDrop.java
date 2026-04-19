@@ -118,6 +118,11 @@ public abstract class AbstractDrop implements DropLuck {
                     && configOptions.contains(CollectionLogLuckConfig.NUM_DIZANAS_QUIVERS_SACRIFICED_KEY)) {
                 kc += Math.max(0, Math.min(kc, config.numDizanasQuiversSacrificed()));
             }
+            if (rollInfo.getDropSource().equals(LogItemSourceInfo.SARACHNIS_KILLS)
+                    && configOptions.contains(CollectionLogLuckConfig.SARACHNIS_KC_BEFORE_PRISTINE_SPIDER_SILK_KEY)) {
+                // Any KC that occurred before the drop existed don't count towards the luck calculation for this item
+                kc -= Math.max(0, Math.min(kc, config.sarachnisKcBeforePristineSpiderSilk()));
+            }
 
             numTrials += kc * rollsPerKc;
         }

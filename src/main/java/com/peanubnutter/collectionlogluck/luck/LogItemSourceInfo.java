@@ -29,6 +29,8 @@ public enum LogItemSourceInfo {
     DAGANNOTH_SUPREME_KILLS("Dagannoth Supreme kills"),
     DEEP_DELVES("Deep delves"),
     DEEPEST_DELVE("Deepest delve"),
+    // Note: this does not currently exist, but it is added in case the text is added in the future, and drops need a
+    // source to work properly.
     DEMONIC_BRUTUS_KILLS("Demonic Brutus kills"),
     DEMONIC_GORILLA_KILLS("Demonic Gorilla kills"),
     DERANGED_ARCHAEOLOGIST_KILLS("Deranged Archaeologist kills"),

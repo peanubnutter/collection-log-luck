@@ -194,6 +194,21 @@ public class PoissonBinomialDrop extends AbstractDrop {
             else if (rollInfoIndex == 1) {
                 return numRolls - Math.max(0, Math.min(numRolls, config.shellbaneGryphonKcPreBuff()));
             }
+        } else if (
+                // IMPORTANT: I don't actually know whether Demonic Brutus KC is included in the number reported under
+                // "Brutus kills", or whether it's not reported at all. For now, I assume Demonic Brutus KC IS NOT
+                // factored into the total at all.
+                rollInfo.getDropSource().equals(LogItemSourceInfo.DEMONIC_BRUTUS_KILLS)
+                        && configOptions.contains(CollectionLogLuckConfig.DEMONIC_BRUTUS_KC_KEY)) {
+            // kc cannot be negative
+            int demonicBrutusKc = Math.max(0, config.demonicBrutusKc());
+            // the collection log does not currently track Demonic Brutus KC. If it ever adds the option in the future
+            // and the numRolls starts working (becoming non-zero), it will override the config option automatically.
+            // The config option can then be removed.
+            if (numRolls > 0) {
+                return numRolls;
+            }
+            return demonicBrutusKc;
         }
 
         return numRolls;

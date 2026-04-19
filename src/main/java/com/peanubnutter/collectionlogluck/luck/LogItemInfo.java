@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-// All 1692 collection log items as of 12/23/2025 and a mapping to their item IDs and drop mechanics / probabilities.
+// All 1699 collection log items as of 4/19/26 and a mapping to their item IDs and drop mechanics / probabilities.
 public class LogItemInfo {
 
     // case-insensitive map, just in case
@@ -4428,17 +4428,26 @@ public class LogItemInfo {
     public static LogItemInfo SWIFT_MARLIN = new LogItemInfo("Swift marlin",31428, new MissingKillCountDrop());
     public static LogItemInfo HELMET_OF_THE_MOON = new LogItemInfo("Helmet of the moon",30111, new MissingKillCountDrop());
     public static LogItemInfo SQUID_BEAK = new LogItemInfo("Squid beak",31572, new MissingKillCountDrop());
-    public static LogItemInfo MOOLETA_33101  = new LogItemInfo("Mooleta", 33101,
-            new BinomialDrop(new RollInfo(LogItemSourceInfo.BRUTUS_KILLS, 1.0 / 30, 1 )));
-    public static LogItemInfo BOTTOMLESS_MILK_BUCKET_EMPTY_33091 = new LogItemInfo("Bottomless milk bucket (empty)", 33091,
-            new BinomialDrop(new RollInfo(LogItemSourceInfo.BRUTUS_KILLS, 1.0 / 37.5, 1)));
-    public static LogItemInfo COW_SLIPPERS_33093 = new LogItemInfo("Cow slippers", 33093,
-            new BinomialDrop(new RollInfo(LogItemSourceInfo.BRUTUS_KILLS, 1.0 / 150, 1)));
-    public static LogItemInfo BEEF_33124 = new LogItemInfo("Beef", 33124,
+    public static LogItemInfo MOOLETA  = new LogItemInfo("Mooleta", 33101,
+            new BinomialDrop(new RollInfo(LogItemSourceInfo.BRUTUS_KILLS, 1.0 / 30)));
+    public static LogItemInfo BOTTOMLESS_MILK_BUCKET_EMPTY = new LogItemInfo("Bottomless milk bucket (empty)", 33091,
+            new BinomialDrop(new RollInfo(LogItemSourceInfo.BRUTUS_KILLS, 1.0 / 37.5)));
+    public static LogItemInfo COW_SLIPPERS = new LogItemInfo("Cow slippers", 33093,
+            new BinomialDrop(new RollInfo(LogItemSourceInfo.BRUTUS_KILLS, 1.0 / 150)));
+    public static LogItemInfo BEEF = new LogItemInfo("Beef", 33124,
             new PoissonBinomialDrop(ImmutableList.of(
-                    new RollInfo(LogItemSourceInfo.BRUTUS_KILLS, 1.0 / 1000, 1),
-                    new RollInfo(LogItemSourceInfo.DEMONIC_BRUTUS_KILLS, 1.0 / 400, 1)
-            )));
+                    new RollInfo(LogItemSourceInfo.BRUTUS_KILLS, 1.0 / 1000),
+                    new RollInfo(LogItemSourceInfo.DEMONIC_BRUTUS_KILLS, 1.0 / 400)
+            ))
+                    .withConfigOption(CollectionLogLuckConfig.DEMONIC_BRUTUS_KC_KEY)
+    );
+    public static LogItemInfo PRISTINE_SPIDER_SILK  = new LogItemInfo("Pristine spider silk", 33133,
+            new BinomialDrop(new RollInfo(LogItemSourceInfo.SARACHNIS_KILLS, 1.0 / 50 ))
+                .withConfigOption(CollectionLogLuckConfig.SARACHNIS_KC_BEFORE_PRISTINE_SPIDER_SILK_KEY));
+    public static LogItemInfo BALLISTIC_ATTRACTOR_SCHEMATIC  = new LogItemInfo("Ballistic attractor schematic", 33143,
+            new DeterministicDrop());
+    public static LogItemInfo FACILITY_BOTTLE_EMPTY  = new LogItemInfo("Facility bottle (empty)", 33074,
+            new MissingKillCountDrop());
 
 
     private final String itemName;

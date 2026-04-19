@@ -45,12 +45,14 @@ public interface CollectionLogLuckConfig extends Config
 	String NIGHTMARE_KC_PRE_BUFF_KEY = "nightmare_kc_pre_buff";
 	String PHOSANIS_NIGHTMARE_KC_PRE_BUFF_KEY = "phosanis_nightmare_kc_pre_buff";
 	String SHELLBANE_GRYPHON_KC_PRE_BUFF_KEY = "shellbane_gryphon_kc_pre_buff";
+	String DEMONIC_BRUTUS_KC_KEY = "demonic_brutus_kc";
 
 	String SHOW_PLUGIN_UPDATES_KEY = "show_plugin_updates";
 	String HIDE_PERSONAL_LUCK_CALCULATION_KEY = "hide_personal_luck_calculation";
 	String SHOW_LUCK_TEXT_ON_COLLECTION_LOG_KEY = "show_luck_text_on_collection_log";
 	String SHOW_LUCK_BACKGROUND_ON_COLLECTION_LOG_KEY = "show_luck_background_on_collection_log";
 	String REPLACE_PERCENTILE_WITH_DRYCALC_NUMBER_KEY = "replace_percentile_with_drycalc_number";
+	String SARACHNIS_KC_BEFORE_PRISTINE_SPIDER_SILK_KEY = "sarachnis_kc_before_pristine_spider_silk";
 
 	// Used in GET request to collectionlog.net. Should be up-to-date with collection log plugin updates.
 	String COLLECTION_LOG_VERSION = "3.1.4";
@@ -286,6 +288,17 @@ public interface CollectionLogLuckConfig extends Config
 	}
 
 	@ConfigItem(
+			keyName = NUM_ROYAL_TITANS_SACRIFICED_KEY,
+			name = "# Royal Titans sacrificed",
+			description = "The number of Royal Titans corpses sacrificed for a chance at Bran.",
+			position = 24,
+			section = luckSection
+	)
+	default int numRoyalTitansSacrificed() {
+		return 0;
+	}
+
+	@ConfigItem(
 			keyName = AVG_CALLISTO_CONTRIBUTION_KEY,
 			name = "Callisto contribution",
 			description = "Avg. fraction (0 to 1) of contribution to killing Callisto." +
@@ -434,13 +447,24 @@ public interface CollectionLogLuckConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = NUM_ROYAL_TITANS_SACRIFICED_KEY,
-			name = "# Royal Titans sacrificed",
-			description = "The number of Royal Titans corpses sacrificed for a chance at Bran.",
-			position = 24,
+			keyName = DEMONIC_BRUTUS_KC_KEY,
+			name = "# Demonic Brutus killed",
+			description = "The Collection Log does not track Demonic Brutus KC, so enter your KC here.",
+			position = 44,
 			section = luckSection
 	)
-	default int numRoyalTitansSacrificed() {
+	default int demonicBrutusKc() {
+		return 0;
+	}
+
+	@ConfigItem(
+			keyName = SARACHNIS_KC_BEFORE_PRISTINE_SPIDER_SILK_KEY,
+			name = "# Sarachnis before Pristine Spider Silk",
+			description = "The number of Sarachnis KC before Pristine Spider Silk was added as a drop.",
+			position = 45,
+			section = luckSection
+	)
+	default int sarachnisKcBeforePristineSpiderSilk() {
 		return 0;
 	}
 
