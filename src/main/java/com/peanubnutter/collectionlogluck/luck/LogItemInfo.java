@@ -4307,7 +4307,13 @@ public class LogItemInfo {
     public static LogItemInfo JAR_OF_FEATHERS = new LogItemInfo("Jar of feathers",32921,
             new BinomialDrop(new RollInfo(LogItemSourceInfo.SHELLBANE_GRYPHON_KILLS, 1.0 / 2000)));
     public static LogItemInfo BELLES_FOLLY_TARNISHED = new LogItemInfo("Belle's folly (tarnished)",31245,
-            new BinomialDrop(new RollInfo(LogItemSourceInfo.SHELLBANE_GRYPHON_KILLS, 1.0 / 400)));
+            new PoissonBinomialDrop(ImmutableList.of(
+                    // pre-buff drop rate
+                    new RollInfo(LogItemSourceInfo.SHELLBANE_GRYPHON_KILLS, 1.0 / 400),
+                    // post-buff drop rate
+                    new RollInfo(LogItemSourceInfo.SHELLBANE_GRYPHON_KILLS, 1.0 / 256)
+            ))
+                    .withConfigOption(CollectionLogLuckConfig.SHELLBANE_GRYPHON_KC_PRE_BUFF_KEY));
     public static LogItemInfo GRYPHON_FEATHER = new LogItemInfo("Gryphon feather",31235, new MissingKillCountDrop());
     public static LogItemInfo YAMI = new LogItemInfo("Yami",30888, new UnimplementedDrop());
     public static LogItemInfo CHASM_TELEPORT_SCROLL = new LogItemInfo("Chasm teleport scroll",30775, new UnimplementedDrop());
@@ -4433,6 +4439,7 @@ public class LogItemInfo {
                     new RollInfo(LogItemSourceInfo.BRUTUS_KILLS, 1.0 / 1000, 1),
                     new RollInfo(LogItemSourceInfo.DEMONIC_BRUTUS_KILLS, 1.0 / 400, 1)
             )));
+
 
     private final String itemName;
     private final int itemId;

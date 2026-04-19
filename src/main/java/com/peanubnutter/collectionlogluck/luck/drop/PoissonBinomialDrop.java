@@ -182,6 +182,18 @@ public class PoissonBinomialDrop extends AbstractDrop {
             else if (rollInfoIndex == 3) {
                 return numRolls - Math.max(0, Math.min(numRolls, config.phosanisNightmareKcPreBuff()));
             }
+        } else if (
+                rollInfo.getDropSource().equals(LogItemSourceInfo.SHELLBANE_GRYPHON_KILLS)
+                        && configOptions.contains(CollectionLogLuckConfig.SHELLBANE_GRYPHON_KC_PRE_BUFF_KEY)) {
+            // Shellbane Gryphon kc pre-buff (for Belle's Folly).
+            if (rollInfoIndex == 0) {
+                // The player cannot have more pre-buff KC than they have KC
+                return Math.max(0, Math.min(numRolls, config.shellbaneGryphonKcPreBuff()));
+            }
+            // Shellbane Gryphon kc post-buff (for Belle's Folly).
+            else if (rollInfoIndex == 1) {
+                return numRolls - Math.max(0, Math.min(numRolls, config.shellbaneGryphonKcPreBuff()));
+            }
         }
 
         return numRolls;

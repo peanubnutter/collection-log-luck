@@ -44,6 +44,7 @@ public interface CollectionLogLuckConfig extends Config
 	String KBD_KC_PRE_D_PICK_BUFF_KEY = "kbd_kc_pre_d_pick_buff";
 	String NIGHTMARE_KC_PRE_BUFF_KEY = "nightmare_kc_pre_buff";
 	String PHOSANIS_NIGHTMARE_KC_PRE_BUFF_KEY = "phosanis_nightmare_kc_pre_buff";
+	String SHELLBANE_GRYPHON_KC_PRE_BUFF_KEY = "shellbane_gryphon_kc_pre_buff";
 
 	String SHOW_PLUGIN_UPDATES_KEY = "show_plugin_updates";
 	String HIDE_PERSONAL_LUCK_CALCULATION_KEY = "hide_personal_luck_calculation";
@@ -511,6 +512,17 @@ public interface CollectionLogLuckConfig extends Config
 			section = luckSection
 	)
 	default int phosanisNightmareKcPreBuff() {
+		return 0;
+	}
+
+	@ConfigItem(
+			keyName = SHELLBANE_GRYPHON_KC_PRE_BUFF_KEY,
+			name = "Shellbane Gryphon KC pre-buff",
+			description = "# of Shellbane Gryphon kills while Belle's Folly was still a 1/400 drop.",
+			position = 55,
+			section = luckSection
+	)
+	default int shellbaneGryphonKcPreBuff() {
 		return 0;
 	}
 

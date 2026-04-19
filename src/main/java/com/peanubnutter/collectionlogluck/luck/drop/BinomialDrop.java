@@ -11,6 +11,7 @@ import java.util.List;
 
 // A drop that follows the standard Binomial distribution. Note: This class supports drops that come from
 // multiple item sources, but it requires the drop chance for the item to be the same across all sources.
+// For unequal drop chances across multiple sources, you probably want to use PoissonBinomialDrop.
 public class BinomialDrop extends AbstractDrop {
 
     public BinomialDrop(List<RollInfo> rollInfos) {
