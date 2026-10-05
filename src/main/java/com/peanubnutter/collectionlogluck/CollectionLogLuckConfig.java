@@ -33,6 +33,7 @@ public interface CollectionLogLuckConfig extends Config
 	String NUM_INFERNAL_CAPES_SACRIFICED_KEY = "num_infernal_capes_sacrificed";
 	String NUM_DIZANAS_QUIVERS_SACRIFICED_KEY = "num_dizanas_quivers_sacrificed";
 	String NUM_ARAXXOR_DESTROYED_KEY = "num_araxxor_destroyed";
+	String NUM_MAGGOT_KING_EGGS_TAKEN_KEY = "num_maggot_king_eggs_taken_key";
 	String NUM_ROYAL_TITANS_SACRIFICED_KEY = "num_royal_titans_sacrificed";
 	String AVG_CALLISTO_CONTRIBUTION_KEY = "avg_callisto_contribution";
 	String AVG_VENENATIS_CONTRIBUTION_KEY = "avg_venenatis_contribution";
@@ -45,6 +46,7 @@ public interface CollectionLogLuckConfig extends Config
 	String NIGHTMARE_KC_PRE_BUFF_KEY = "nightmare_kc_pre_buff";
 	String PHOSANIS_NIGHTMARE_KC_PRE_BUFF_KEY = "phosanis_nightmare_kc_pre_buff";
 	String SHELLBANE_GRYPHON_KC_PRE_BUFF_KEY = "shellbane_gryphon_kc_pre_buff";
+	String SHELLBANE_GRYPHON_KC_PRE_BUFF2_KEY = "shellbane_gryphon_kc_pre_buff2";
 	String DEMONIC_BRUTUS_KC_KEY = "demonic_brutus_kc";
 
 	String SHOW_PLUGIN_UPDATES_KEY = "show_plugin_updates";
@@ -468,6 +470,17 @@ public interface CollectionLogLuckConfig extends Config
 		return 0;
 	}
 
+	@ConfigItem(
+		keyName = NUM_MAGGOT_KING_EGGS_TAKEN_KEY,
+		name = "# Maggot King eggs taken",
+		description = "The number of Maggot King eggs taken (sacrificing loot for pet chance).",
+		position = 44,
+		section = sacrificeSection
+	)
+	default int numMaggotKingEggsTaken() {
+		return 0;
+	}
+
 	// ############### Settings based on historical drop rate changes ###############
 
 	@ConfigSection(
@@ -544,10 +557,21 @@ public interface CollectionLogLuckConfig extends Config
 	}
 
 	@ConfigItem(
+		keyName = SHELLBANE_GRYPHON_KC_PRE_BUFF2_KEY,
+		name = "Shellbane Gryphon KC pre-buff 2",
+		description = "# of Shellbane Gryphon kills while Belle's Folly was still a 1/256 drop.",
+		position = 56,
+		section = dropRateChangesSection
+	)
+	default int shellbaneGryphonKcPreBuff2() {
+		return 0;
+	}
+
+	@ConfigItem(
 			keyName = SARACHNIS_KC_BEFORE_PRISTINE_SPIDER_SILK_KEY,
 			name = "# Sarachnis before Pristine Spider Silk",
 			description = "The number of Sarachnis KC before Pristine Spider Silk was added as a drop.",
-			position = 56,
+			position = 57,
 			section = dropRateChangesSection
 	)
 	default int sarachnisKcBeforePristineSpiderSilk() {

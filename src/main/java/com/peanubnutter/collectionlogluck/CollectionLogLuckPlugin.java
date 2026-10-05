@@ -73,11 +73,12 @@ public class CollectionLogLuckPlugin extends Plugin {
             "CLog Luck - warning: collectionlog.net has shut down. Text commands are disabled until further notice.";
 
     // Make sure to update this version to show the plugin message below.
-    private final String pluginVersion = "v1.2.3";
+    private final String pluginVersion = "v1.2.4";
     private final String pluginMessage = "<colHIGHLIGHT>Collection Log Luck " + pluginVersion + ":<br>" +
-            "<colHIGHLIGHT>* Update Shellbane Gryphon drop rates<br>" +
-            "<colHIGHLIGHT>* Support Brutus drops and Pristine Spider Silk<br>" +
-            "<colHIGHLIGHT>* Configure your KC in the settings panel.<br>";
+                                           "<colHIGHLIGHT>* Support Mad Angel and Maggot King<br>" +
+                                           "<colHIGHLIGHT>* Support Immaculate Mole Skin<br>" +
+                                           "<colHIGHLIGHT>* Update Shellbane Gryphon drop rates AGAIN<br>" +
+                                           "<colHIGHLIGHT>* Configure your KC in the settings panel.<br>";
 
     private Map<Integer, Integer> loadedCollectionLogIcons;
 
@@ -327,8 +328,8 @@ public class CollectionLogLuckPlugin extends Plugin {
             boolean isObtained = widgetItem.getOpacity() == 0;
             int quantity = isObtained ? widgetItem.getItemQuantity() : 0;
 
-//            // Uncomment to update LogItemInfo list
-//            // Example: (Farmer's shirt,13643)
+            // Uncomment to update LogItemInfo list
+            // Example: (Farmer's shirt,13643)
 //            String newItemName = itemDisplayNameToItemName(widgetItem.getName());
 //            LogItemInfo logItemInfo = LogItemInfo.findByName(newItemName);
 //            if (logItemInfo == null) {

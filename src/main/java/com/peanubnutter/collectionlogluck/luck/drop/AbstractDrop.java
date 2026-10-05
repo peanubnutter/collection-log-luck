@@ -103,6 +103,10 @@ public abstract class AbstractDrop implements DropLuck {
                     && configOptions.contains(CollectionLogLuckConfig.NUM_ARAXXOR_DESTROYED_KEY)) {
                 kc -= Math.max(0, Math.min(kc, config.numAraxxorDestroyed()));
             }
+            if (rollInfo.getDropSource().equals(LogItemSourceInfo.MAGGOT_KING_KILLS)
+                  && configOptions.contains(CollectionLogLuckConfig.NUM_MAGGOT_KING_EGGS_TAKEN_KEY)) {
+                kc -= Math.max(0, Math.min(kc, config.numMaggotKingEggsTaken()));
+            }
             // Rather than doubling drop chance, instead double the kc. This is basically statistically the same for
             // rare drops like this.
             if (rollInfo.getDropSource().equals(LogItemSourceInfo.ROYAL_TITAN_KILLS)

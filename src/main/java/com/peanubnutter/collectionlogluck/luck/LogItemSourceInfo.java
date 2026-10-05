@@ -59,6 +59,8 @@ public enum LogItemSourceInfo {
     LEVIATHAN_KILLS("Leviathan kills"),
     // Moons of Peril
     LUNAR_CHESTS_OPENED("Lunar Chests opened"),
+    MAD_ANGEL_KILLS("Mad Angel kills"),
+    MAGGOT_KING_KILLS("Maggot King kills"),
     MASTER_CLUES_COMPLETED("Master clues completed"),
     MEDIUM_CLUES_COMPLETED("Medium clues completed"),
     NEX_KILLS("Nex kills"),
