@@ -78,7 +78,6 @@ public interface CollectionLogLuckConfig extends Config
 		return true;
 	}
 
-
 	// Other players' luck will always show, for example though the !luck command, but the player may want to hide
 	// their own luck because it could be unpleasant to see.
 	@ConfigItem(
