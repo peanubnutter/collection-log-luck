@@ -1,5 +1,6 @@
 package com.peanubnutter.collectionlogluck.model;
 
+import com.peanubnutter.collectionlogluck.luck.LogItemSourceInfo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -107,7 +108,7 @@ public class CollectionLog
                 }
             }
 
-//            // Uncomment this code to print any missing entries from LogItemSourceInfo list
+            // Uncomment this code to print any missing entries from LogItemSourceInfo list
 //            LogItemSourceInfo logItemSourceInfo = LogItemSourceInfo.findByName(killCountName);
 //            if (logItemSourceInfo == null) {
 //                // import org.slf4j.* for these to work

@@ -33,6 +33,7 @@ public interface CollectionLogLuckConfig extends Config
 	String NUM_INFERNAL_CAPES_SACRIFICED_KEY = "num_infernal_capes_sacrificed";
 	String NUM_DIZANAS_QUIVERS_SACRIFICED_KEY = "num_dizanas_quivers_sacrificed";
 	String NUM_ARAXXOR_DESTROYED_KEY = "num_araxxor_destroyed";
+	String NUM_MAGGOT_KING_EGGS_TAKEN_KEY = "num_maggot_king_eggs_taken_key";
 	String NUM_ROYAL_TITANS_SACRIFICED_KEY = "num_royal_titans_sacrificed";
 	String AVG_CALLISTO_CONTRIBUTION_KEY = "avg_callisto_contribution";
 	String AVG_VENENATIS_CONTRIBUTION_KEY = "avg_venenatis_contribution";
@@ -44,12 +45,16 @@ public interface CollectionLogLuckConfig extends Config
 	String KBD_KC_PRE_D_PICK_BUFF_KEY = "kbd_kc_pre_d_pick_buff";
 	String NIGHTMARE_KC_PRE_BUFF_KEY = "nightmare_kc_pre_buff";
 	String PHOSANIS_NIGHTMARE_KC_PRE_BUFF_KEY = "phosanis_nightmare_kc_pre_buff";
+	String SHELLBANE_GRYPHON_KC_PRE_BUFF_KEY = "shellbane_gryphon_kc_pre_buff";
+	String SHELLBANE_GRYPHON_KC_PRE_BUFF2_KEY = "shellbane_gryphon_kc_pre_buff2";
+	String DEMONIC_BRUTUS_KC_KEY = "demonic_brutus_kc";
 
 	String SHOW_PLUGIN_UPDATES_KEY = "show_plugin_updates";
 	String HIDE_PERSONAL_LUCK_CALCULATION_KEY = "hide_personal_luck_calculation";
 	String SHOW_LUCK_TEXT_ON_COLLECTION_LOG_KEY = "show_luck_text_on_collection_log";
 	String SHOW_LUCK_BACKGROUND_ON_COLLECTION_LOG_KEY = "show_luck_background_on_collection_log";
 	String REPLACE_PERCENTILE_WITH_DRYCALC_NUMBER_KEY = "replace_percentile_with_drycalc_number";
+	String SARACHNIS_KC_BEFORE_PRISTINE_SPIDER_SILK_KEY = "sarachnis_kc_before_pristine_spider_silk";
 
 	// Used in GET request to collectionlog.net. Should be up-to-date with collection log plugin updates.
 	String COLLECTION_LOG_VERSION = "3.1.4";
@@ -72,7 +77,6 @@ public interface CollectionLogLuckConfig extends Config
 	{
 		return true;
 	}
-
 
 	// Other players' luck will always show, for example though the !luck command, but the player may want to hide
 	// their own luck because it could be unpleasant to see.
@@ -124,23 +128,21 @@ public interface CollectionLogLuckConfig extends Config
 		return false;
 	}
 
-	// ############### Luck section ###############
+	// ############### Raids section ###############
 
 	@ConfigSection(
-			name = "Luck calculation",
-			description = "Config options for calculation collection log luck",
+			name = "Raids",
+			description = "Luck calculation options for raids",
 			position = 2
 	)
-	String luckSection = "Luck calculation";
-
-	// ############### Raids, in order, are at the top since it's likely most interesting to people. ###############
+	String raidsSection = "Raids";
 
 	@ConfigItem(
 			keyName = AVG_PERSONAL_COX_POINTS_KEY,
 			name = "CoX points per raid",
 			description = "The average # of points you personally receive per Chambers of Xeric raid.",
 			position = 10,
-			section = luckSection
+			section = raidsSection
 	)
 	default int avgPersonalCoxPoints()
 	{
@@ -152,7 +154,7 @@ public interface CollectionLogLuckConfig extends Config
 			name = "CoX CM points per raid",
 			description = "The average # of points you personally receive per Chambers of Xeric Challenge Mode raid.",
 			position = 11,
-			section = luckSection
+			section = raidsSection
 	)
 	default int avgPersonalCoxCmPoints()
 	{
@@ -164,7 +166,7 @@ public interface CollectionLogLuckConfig extends Config
 			name = "ToB point fraction",
 			description = "The average fraction (0 to 1) of max team points you receive per Theatre of Blood raid, including MVP points.",
 			position = 12,
-			section = luckSection
+			section = raidsSection
 	)
 	default double avgPersonalTobPointFraction()
 	{
@@ -176,7 +178,7 @@ public interface CollectionLogLuckConfig extends Config
 			name = "ToB HM point fraction",
 			description = "The average fraction (0 to 1) of max team points you receive per Theatre of Blood Hard Mode raid, including MVP points.",
 			position = 13,
-			section = luckSection
+			section = raidsSection
 	)
 	default double avgPersonalTobHmPointFraction()
 	{
@@ -189,7 +191,7 @@ public interface CollectionLogLuckConfig extends Config
 			name = "Entry ToA Unique Chance",
 			description = "Use a plugin/calc to estimate your chance (0 to 1) of a unique for your typical raid setup. Defaults to 50 invocation level.",
 			position = 14,
-			section = luckSection
+			section = raidsSection
 	)
 	default double entryToaUniqueChance()
 	{
@@ -201,7 +203,7 @@ public interface CollectionLogLuckConfig extends Config
 			name = "Regular ToA Unique Chance",
 			description = "Use a plugin/calc to estimate your chance (0 to 1) of a unique for your typical raid setup. Defaults to 150 invocation level.",
 			position = 15,
-			section = luckSection
+			section = raidsSection
 	)
 	default double regularToaUniqueChance()
 	{
@@ -213,12 +215,21 @@ public interface CollectionLogLuckConfig extends Config
 			name = "Expert ToA Unique Chance",
 			description = "Use a plugin/calc to estimate your chance (0 to 1) of a unique for your typical raid setup. Defaults to 300 invocation level.",
 			position = 16,
-			section = luckSection
+			section = raidsSection
 	)
 	default double expertToaUniqueChance()
 	{
 		return 0.0440;
 	}
+
+	// ############### Team Bosses section ###############
+
+	@ConfigSection(
+			name = "Team bosses",
+			description = "Luck calculation options for team based bosses",
+			position = 3
+	)
+	String teamBossesSection = "Team bosses";
 
 	// ############### Team based bosses with contribution (% damage dealt and/or MVP mechanic) ###############
 
@@ -227,7 +238,7 @@ public interface CollectionLogLuckConfig extends Config
 			name = "Nightmare team size",
 			description = "Average team size when killing The Nightmare of Ashihama. Decimals can be used.",
 			position = 20,
-			section = luckSection
+			section = teamBossesSection
 	)
 	default double avgNightmareTeamSize() {
 		return 5;
@@ -239,7 +250,7 @@ public interface CollectionLogLuckConfig extends Config
 			description = "Avg. fraction (0 to 1) of contribution to killing The Nightmare of Ashihama." +
 					" This should include MVP bonuses, so multiply by 1.05 if always MVP, or less accordingly.",
 			position = 21,
-			section = luckSection
+			section = teamBossesSection
 	)
 	default double avgNightmareContribution() {
 		// average MVP rate of 20% with an average contribution on a 5-man team
@@ -252,7 +263,7 @@ public interface CollectionLogLuckConfig extends Config
 			description = "Avg. fraction (0 to 1) of contribution to killing Nex." +
 					" This should include MVP bonuses, so multiply by 1.1 if always MVP, or less accordingly.",
 			position = 22,
-			section = luckSection
+			section = teamBossesSection
 	)
 	default double avgNexContribution() {
 		// average MVP rate of 20% with an average contribution on a 5-man team
@@ -265,7 +276,7 @@ public interface CollectionLogLuckConfig extends Config
 			description = "Avg. fraction (0 to 1) of contribution to killing The Hueycoatl." +
 					" This should include MVP bonuses, so multiply by 1.1 if always MVP, or less accordingly.",
 			position = 23,
-			section = luckSection
+			section = teamBossesSection
 	)
 	default double avgHueycoatlContribution() {
 		// average MVP rate of 33% with an average contribution on a 3-man team
@@ -277,11 +288,22 @@ public interface CollectionLogLuckConfig extends Config
 			name = "Royal Titans contribution",
 			description = "Avg. fraction (0 to 1) of contribution to killing the Royal Titans. Set to 1 if you only solo.",
 			position = 24,
-			section = luckSection
+			section = teamBossesSection
 	)
 	default double avgRoyalTitansContribution() {
 		// Assume duo by default, with average contribution
 		return 0.5;
+	}
+
+	@ConfigItem(
+			keyName = NUM_ROYAL_TITANS_SACRIFICED_KEY,
+			name = "# Royal Titans sacrificed",
+			description = "The number of Royal Titans corpses sacrificed for a chance at Bran.",
+			position = 24,
+			section = teamBossesSection
+	)
+	default int numRoyalTitansSacrificed() {
+		return 0;
 	}
 
 	@ConfigItem(
@@ -290,7 +312,7 @@ public interface CollectionLogLuckConfig extends Config
 			description = "Avg. fraction (0 to 1) of contribution to killing Callisto." +
 					" Set to 0.1 if team size >= 10, or 1 if soloing.",
 			position = 25,
-			section = luckSection
+			section = teamBossesSection
 	)
 	default double avgCallistoContribution() {
 		return 0.2;
@@ -302,7 +324,7 @@ public interface CollectionLogLuckConfig extends Config
 			description = "Avg. fraction (0 to 1) of contribution to killing Venenatis." +
 					" Set to 0.1 if team size >= 10, or 1 if soloing.",
 			position = 26,
-			section = luckSection
+			section = teamBossesSection
 	)
 	default double avgVenenatisContribution() {
 		return 0.5;
@@ -314,7 +336,7 @@ public interface CollectionLogLuckConfig extends Config
 			description = "Avg. fraction (0 to 1) of contribution to killing Vet'ion." +
 					" Set to 0.1 if team size >= 10, or 1 if soloing.",
 			position = 27,
-			section = luckSection
+			section = teamBossesSection
 	)
 	default double avgVetionContribution() {
 		return 0.5;
@@ -325,7 +347,7 @@ public interface CollectionLogLuckConfig extends Config
 			name = "Scurrius MVP rate",
 			description = "Fraction (0 to 1) of the time you are MVP while fighting Scurrius. Set to 1 if you always solo.",
 			position = 28,
-			section = luckSection
+			section = teamBossesSection
 	)
 	default double avgScurriusMvpRate() {
 		// Solo is most efficient
@@ -337,7 +359,7 @@ public interface CollectionLogLuckConfig extends Config
 			name = "Zalcano contribution",
 			description = "Avg. fraction (0 to 1) of contribution to killing Zalcano, taking into account team size.",
 			position = 29,
-			section = luckSection
+			section = teamBossesSection
 	)
 	default double avgZalcanoContribution() {
 		// 4 man is most efficient
@@ -349,7 +371,7 @@ public interface CollectionLogLuckConfig extends Config
 			name = "Zalcano points",
 			description = "Your average number of points per Zalcano kill. See wiki for more info.",
 			position = 30,
-			section = luckSection
+			section = teamBossesSection
 	)
 	default int avgZalcanoPoints() {
 		// According to Zalcano community, 210 to 350 points is normal in efficient 4-man
@@ -358,6 +380,13 @@ public interface CollectionLogLuckConfig extends Config
 
 	// ############### Misc minigames and minor bosses. ###############
 
+	@ConfigSection(
+			name = "Barrows",
+			description = "Luck calculation options for Barrows",
+			position = 4
+	)
+	String barrowsSection = "Barrows";
+
 	// Completing Barrows without killing all 6 brothers, for example if rapidly resetting to finish Barrows combat
 	// achievements, drastically reduces the chance of receiving unique loot. The player can configure an approximate
 	// number of Barrows KC they have wasted, including summing fractional less-than-6-brother-kills, to make the luck
@@ -365,9 +394,10 @@ public interface CollectionLogLuckConfig extends Config
 	@ConfigItem(
 			keyName = NUM_INVALID_BARROWS_KC_KEY,
 			name = "# Barrows KC wasted",
-			description = "The effective number of Barrows KC wasted by killing < 6 brothers. 4-5 brothers killed ~= 0.5 KC wasted.",
+			description = "The effective number of Barrows KC wasted by killing less than 6 brothers. " +
+					"4-5 brothers killed ~= 0.5 KC wasted.",
 			position = 31,
-			section = luckSection
+			section = barrowsSection
 	)
 	default int numInvalidBarrowsKc()
 	{
@@ -379,7 +409,7 @@ public interface CollectionLogLuckConfig extends Config
 			name = "Bolt racks enabled",
 			description = "Whether or not you try to get enough points at Barrows to receive bolt racks.",
 			position = 32,
-			section = luckSection
+			section = barrowsSection
 	)
 	default boolean barrowsBoltRacksEnabled()
 	{
@@ -388,12 +418,19 @@ public interface CollectionLogLuckConfig extends Config
 
 	// ############### Manually purchased or sacrificed items. Requires regular updates by the user. ###############
 
+	@ConfigSection(
+			name = "Manual sacrifice",
+			description = "Luck calculation options for sacrificing capes, etc. to boost drop rates",
+			position = 5
+	)
+	String sacrificeSection = "Manual sacrifice";
+
 	@ConfigItem(
 			keyName = NUM_FIRE_CAPES_SACRIFICED_KEY,
 			name = "# Fire capes sacrificed",
 			description = "The number of fire capes sacrificed for a chance at TzRek-Jad.",
 			position = 40,
-			section = luckSection
+			section = sacrificeSection
 	)
 	default int numFireCapesSacrificed() {
 		return 0;
@@ -404,7 +441,7 @@ public interface CollectionLogLuckConfig extends Config
 			name = "# Infernal capes sacrificed",
 			description = "The number of infernal capes sacrificed for a chance at Jal-nib-rek.",
 			position = 41,
-			section = luckSection
+			section = sacrificeSection
 	)
 	default int numInfernalCapesSacrificed() {
 		return 0;
@@ -415,7 +452,7 @@ public interface CollectionLogLuckConfig extends Config
 			name = "# Dizana's Quivers sacrificed",
 			description = "The number of Dizana's Quivers sacrificed for a chance at Smol Heredit.",
 			position = 42,
-			section = luckSection
+			section = sacrificeSection
 	)
 	default int numDizanasQuiversSacrificed() {
 		return 0;
@@ -426,45 +463,38 @@ public interface CollectionLogLuckConfig extends Config
 			name = "# Araxxor destroyed",
 			description = "The number of Araxxor corpses destroyed for a chance at Nid.",
 			position = 43,
-			section = luckSection
+			section = sacrificeSection
 	)
 	default int numAraxxorDestroyed() {
 		return 0;
 	}
 
 	@ConfigItem(
-			keyName = NUM_ROYAL_TITANS_SACRIFICED_KEY,
-			name = "# Royal Titans sacrificed",
-			description = "The number of Royal Titans corpses sacrificed for a chance at Bran.",
-			position = 24,
-			section = luckSection
+		keyName = NUM_MAGGOT_KING_EGGS_TAKEN_KEY,
+		name = "# Maggot King eggs taken",
+		description = "The number of Maggot King eggs taken (sacrificing loot for pet chance).",
+		position = 44,
+		section = sacrificeSection
 	)
-	default int numRoyalTitansSacrificed() {
-		return 0;
-	}
-
-	// Purchasing crystal weapon seeds prevents calculating how many the player has received through the Gauntlet.
-	// The calculation can be corrected if the player inputs the number purchased from the shop.
-	@ConfigItem(
-			keyName = NUM_CRYSTAL_WEAPON_SEEDS_PURCHASED_KEY,
-			name = "# Crystal weapon seeds bought",
-			description = "The number of crystal weapon seeds you bought from the Last Man Standing shop.",
-			position = 46,
-			section = luckSection
-	)
-	default int numCrystalWeaponSeedsPurchased()
-	{
+	default int numMaggotKingEggsTaken() {
 		return 0;
 	}
 
 	// ############### Settings based on historical drop rate changes ###############
+
+	@ConfigSection(
+			name = "Drop rate changes",
+			description = "Track (or estimate) KC before / after drop rate changes occurred",
+			position = 20
+	)
+	String dropRateChangesSection = "Drop rate changes";
 
 	@ConfigItem(
 			keyName = SKOTIZO_KC_PRE_BUFF_KEY,
 			name = "Skotizo KC pre-buff",
 			description = "# of Skotizo kills before the Jar of darkness drop rate buff",
 			position = 50,
-			section = luckSection
+			section = dropRateChangesSection
 	)
 	default int skotizoKcPreBuff() {
 		return 0;
@@ -475,7 +505,7 @@ public interface CollectionLogLuckConfig extends Config
 			name = "KQ KC pre- d pick buff",
 			description = "# of Kalphite Queen kills before the Dragon Pickaxe was added to the drop table.",
 			position = 51,
-			section = luckSection
+			section = dropRateChangesSection
 	)
 	default int kqKcPreDPickBuff() {
 		return 0;
@@ -486,7 +516,7 @@ public interface CollectionLogLuckConfig extends Config
 			name = "KBD KC pre- d pick buff",
 			description = "# of King Black Dragon kills before the Dragon Pickaxe drop rate buff.",
 			position = 52,
-			section = luckSection
+			section = dropRateChangesSection
 	)
 	default int kbdKcPreDPickBuff() {
 		return 0;
@@ -497,7 +527,7 @@ public interface CollectionLogLuckConfig extends Config
 			name = "Nightmare KC pre-buff",
 			description = "# of Nightmare kills before the drop rate buffs.",
 			position = 53,
-			section = luckSection
+			section = dropRateChangesSection
 	)
 	default int nightmareKcPreBuff() {
 		return 0;
@@ -508,9 +538,76 @@ public interface CollectionLogLuckConfig extends Config
 			name = "Phosani's Nightmare KC pre-buff",
 			description = "# of Phosani's Nightmare kills before the drop rate buffs.",
 			position = 54,
-			section = luckSection
+			section = dropRateChangesSection
 	)
 	default int phosanisNightmareKcPreBuff() {
+		return 0;
+	}
+
+	@ConfigItem(
+			keyName = SHELLBANE_GRYPHON_KC_PRE_BUFF_KEY,
+			name = "Shellbane Gryphon KC pre-buff",
+			description = "# of Shellbane Gryphon kills while Belle's Folly was still a 1/400 drop.",
+			position = 55,
+			section = dropRateChangesSection
+	)
+	default int shellbaneGryphonKcPreBuff() {
+		return 0;
+	}
+
+	@ConfigItem(
+		keyName = SHELLBANE_GRYPHON_KC_PRE_BUFF2_KEY,
+		name = "Shellbane Gryphon KC pre-buff 2",
+		description = "# of Shellbane Gryphon kills while Belle's Folly was still a 1/256 drop.",
+		position = 56,
+		section = dropRateChangesSection
+	)
+	default int shellbaneGryphonKcPreBuff2() {
+		return 0;
+	}
+
+	@ConfigItem(
+			keyName = SARACHNIS_KC_BEFORE_PRISTINE_SPIDER_SILK_KEY,
+			name = "# Sarachnis before Pristine Spider Silk",
+			description = "The number of Sarachnis KC before Pristine Spider Silk was added as a drop.",
+			position = 57,
+			section = dropRateChangesSection
+	)
+	default int sarachnisKcBeforePristineSpiderSilk() {
+		return 0;
+	}
+
+	// ############### Misc calculation settings. ###############
+
+	@ConfigSection(
+			name = "Misc calculation settings",
+			description = "Misc calculation options",
+			position = 50
+	)
+	String miscSection = "Misc calculation settings";
+
+	@ConfigItem(
+			keyName = DEMONIC_BRUTUS_KC_KEY,
+			name = "# Demonic Brutus killed",
+			description = "The Collection Log does not track Demonic Brutus KC, so enter your KC here.",
+			position = 44,
+			section = miscSection
+	)
+	default int demonicBrutusKc() {
+		return 0;
+	}
+
+	// Purchasing crystal weapon seeds prevents calculating how many the player has received through the Gauntlet.
+	// The calculation can be corrected if the player inputs the number purchased from the shop.
+	@ConfigItem(
+			keyName = NUM_CRYSTAL_WEAPON_SEEDS_PURCHASED_KEY,
+			name = "# Crystal weapon seeds bought",
+			description = "The number of crystal weapon seeds you bought from the Last Man Standing shop.",
+			position = 45,
+			section = miscSection
+	)
+	default int numCrystalWeaponSeedsPurchased()
+	{
 		return 0;
 	}
 

@@ -11,10 +11,7 @@ import com.peanubnutter.collectionlogluck.model.CollectionLog;
 import com.peanubnutter.collectionlogluck.model.CollectionLogItem;
 import com.peanubnutter.collectionlogluck.model.CollectionLogKillCount;
 import com.peanubnutter.collectionlogluck.model.CollectionLogPage;
-import com.peanubnutter.collectionlogluck.util.CollectionLogBuilder;
-import com.peanubnutter.collectionlogluck.util.CollectionLogLuckApiClient;
-import com.peanubnutter.collectionlogluck.util.JsonUtils;
-import com.peanubnutter.collectionlogluck.util.LuckUtils;
+import com.peanubnutter.collectionlogluck.util.*;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.*;
@@ -76,10 +73,12 @@ public class CollectionLogLuckPlugin extends Plugin {
             "CLog Luck - warning: collectionlog.net has shut down. Text commands are disabled until further notice.";
 
     // Make sure to update this version to show the plugin message below.
-    private final String pluginVersion = "v1.2.2";
+    private final String pluginVersion = "v1.2.4";
     private final String pluginMessage = "<colHIGHLIGHT>Collection Log Luck " + pluginVersion + ":<br>" +
-            "<colHIGHLIGHT>* Fixed broken luck calculations<br>" +
-            "<colHIGHLIGHT>* Support Shellbane Gryphon and Steel Ring<br>";
+                                           "<colHIGHLIGHT>* Support Mad Angel and Maggot King<br>" +
+                                           "<colHIGHLIGHT>* Support Immaculate Mole Skin<br>" +
+                                           "<colHIGHLIGHT>* Update Shellbane Gryphon drop rates AGAIN<br>" +
+                                           "<colHIGHLIGHT>* Configure your KC in the settings panel.<br>";
 
     private Map<Integer, Integer> loadedCollectionLogIcons;
 
@@ -329,8 +328,8 @@ public class CollectionLogLuckPlugin extends Plugin {
             boolean isObtained = widgetItem.getOpacity() == 0;
             int quantity = isObtained ? widgetItem.getItemQuantity() : 0;
 
-//            // Uncomment to update LogItemInfo list
-//            // Example: (Farmer's shirt,13643)
+            // Uncomment to update LogItemInfo list
+            // Example: (Farmer's shirt,13643)
 //            String newItemName = itemDisplayNameToItemName(widgetItem.getName());
 //            LogItemInfo logItemInfo = LogItemInfo.findByName(newItemName);
 //            if (logItemInfo == null) {

@@ -103,6 +103,10 @@ public abstract class AbstractDrop implements DropLuck {
                     && configOptions.contains(CollectionLogLuckConfig.NUM_ARAXXOR_DESTROYED_KEY)) {
                 kc -= Math.max(0, Math.min(kc, config.numAraxxorDestroyed()));
             }
+            if (rollInfo.getDropSource().equals(LogItemSourceInfo.MAGGOT_KING_KILLS)
+                  && configOptions.contains(CollectionLogLuckConfig.NUM_MAGGOT_KING_EGGS_TAKEN_KEY)) {
+                kc -= Math.max(0, Math.min(kc, config.numMaggotKingEggsTaken()));
+            }
             // Rather than doubling drop chance, instead double the kc. This is basically statistically the same for
             // rare drops like this.
             if (rollInfo.getDropSource().equals(LogItemSourceInfo.ROYAL_TITAN_KILLS)
@@ -117,6 +121,11 @@ public abstract class AbstractDrop implements DropLuck {
             if (rollInfo.getDropSource().equals(LogItemSourceInfo.SOL_HEREDIT_KILLS)
                     && configOptions.contains(CollectionLogLuckConfig.NUM_DIZANAS_QUIVERS_SACRIFICED_KEY)) {
                 kc += Math.max(0, Math.min(kc, config.numDizanasQuiversSacrificed()));
+            }
+            if (rollInfo.getDropSource().equals(LogItemSourceInfo.SARACHNIS_KILLS)
+                    && configOptions.contains(CollectionLogLuckConfig.SARACHNIS_KC_BEFORE_PRISTINE_SPIDER_SILK_KEY)) {
+                // Any KC that occurred before the drop existed don't count towards the luck calculation for this item
+                kc -= Math.max(0, Math.min(kc, config.sarachnisKcBeforePristineSpiderSilk()));
             }
 
             numTrials += kc * rollsPerKc;

@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-// All 1692 collection log items as of 12/23/2025 and a mapping to their item IDs and drop mechanics / probabilities.
+// All 1699 collection log items as of 4/19/26 and a mapping to their item IDs and drop mechanics / probabilities.
 public class LogItemInfo {
 
     // case-insensitive map, just in case
@@ -35,7 +35,7 @@ public class LogItemInfo {
                     new RollInfo(LogItemSourceInfo.MASTER_CLUES_COMPLETED, 1.0 / 149_776, 6)
             ))),
         ...KEY_MASTER_TELEPORT_13249 = new LogItemInfo("Key master teleport", 13249,
-            new FixedStackDrop(new RollInfo(LogItemSourceInfo.CERBERUS_KILLS, 1.0 / 64), 3)),
+            new FixedStackDrop(new RollInfo(LogItemSourceInfo.CERBERUS_KILLS, 1.0 / 65), 7)),
         ...VETION_JR_13179 = new LogItemInfo("Vet'ion jr.", 13179,
             new UnimplementedDrop()),
         ...VORKATHS_HEAD_21907 = new LogItemInfo("Vorkath's head", 21907,
@@ -1778,12 +1778,17 @@ public class LogItemInfo {
             new MissingKillCountDrop());
     public static LogItemInfo GRANITE_CLAMP_12849 = new LogItemInfo("Granite clamp", 12849,
             new DeterministicDrop());
-    // Capped at 65535
+    // Capped at 65535, and now it is shared between mad angel and GGs. Not really worth it to calculate.
     public static LogItemInfo GRANITE_DUST_21726 = new LogItemInfo("Granite dust", 21726,
-            new BinomialUniformSumDrop(
-                    new RollInfo(LogItemSourceInfo.GROTESQUE_GUARDIAN_KILLS, 1),
-                    50, 100
-            ));
+            new PoissonBinomialStackDrop());
+//            new BinomialUniformSumDrop(
+//                    new RollInfo(LogItemSourceInfo.GROTESQUE_GUARDIAN_KILLS, 1),
+//                    50, 100
+//            ));
+//            new BinomialUniformSumDrop(
+//                    new RollInfo(LogItemSourceInfo.MAD_ANGEL_KILLS, 1),
+//                    25, 35
+//            ));
     public static LogItemInfo GRANITE_GLOVES_21736 = new LogItemInfo("Granite gloves", 21736,
             new BinomialDrop(new RollInfo(LogItemSourceInfo.GROTESQUE_GUARDIAN_KILLS, 1.0 / 500, 2)));
     public static LogItemInfo GRANITE_HAMMER_21742 = new LogItemInfo("Granite hammer", 21742,
@@ -2271,7 +2276,12 @@ public class LogItemInfo {
     public static LogItemInfo KBD_HEADS_7980 = new LogItemInfo("Kbd heads", 7980,
             new BinomialDrop(new RollInfo(LogItemSourceInfo.KING_BLACK_DRAGON_KILLS, 1.0 / 128)));
     public static LogItemInfo KEY_MASTER_TELEPORT_13249 = new LogItemInfo("Key master teleport", 13249,
-            new FixedStackDrop(new RollInfo(LogItemSourceInfo.CERBERUS_KILLS, 1.0 / 64), 3));
+            // TODO: These were updated from a stackSize of 3 to a stackSize of 7, but I don't have a config option
+            // to track the KC before / after. For now, I'll just update the drop rate to 7 but know that this is
+            // inaccurate.
+            // I'd have to have a version of PoissonBinomialDrop that works with fixed stack sizes... of multiple
+            // different sizes... just for this 1 item. Not bothering to fix this for now.
+            new FixedStackDrop(new RollInfo(LogItemSourceInfo.CERBERUS_KILLS, 1.0 / 65), 7));
     public static LogItemInfo KODAI_INSIGNIA_21043 = new LogItemInfo("Kodai insignia", 21043,
             new PoissonBinomialDrop(ImmutableList.of(
                     new RollInfo(LogItemSourceInfo.CHAMBERS_OF_XERIC_COMPLETIONS, 1.0 / 34.5),
@@ -4179,7 +4189,7 @@ public class LogItemInfo {
     public static LogItemInfo NID_29836 = new LogItemInfo("Nid", 29836,
             new BinomialDrop(new RollInfo(LogItemSourceInfo.ARAXXOR_KILLS, 1.0 / 3000))
                     .withConfigOption("Nid"));
-    public static LogItemInfo ARAXYTE_VENOM_SACK_29784 = new LogItemInfo("Araxyte venom sack", 29784,
+    public static LogItemInfo ARAXYTE_VENOM_SAC_29784 = new LogItemInfo("Araxyte venom sac", 29784,
             new MissingKillCountDrop());
     public static LogItemInfo SPIDER_CAVE_TELEPORT_29782 = new LogItemInfo("Spider cave teleport", 29782,
             new FixedStackDrop(new RollInfo(LogItemSourceInfo.ARAXXOR_KILLS, 1.0 / 14.38), 3)
@@ -4307,7 +4317,16 @@ public class LogItemInfo {
     public static LogItemInfo JAR_OF_FEATHERS = new LogItemInfo("Jar of feathers",32921,
             new BinomialDrop(new RollInfo(LogItemSourceInfo.SHELLBANE_GRYPHON_KILLS, 1.0 / 2000)));
     public static LogItemInfo BELLES_FOLLY_TARNISHED = new LogItemInfo("Belle's folly (tarnished)",31245,
-            new BinomialDrop(new RollInfo(LogItemSourceInfo.SHELLBANE_GRYPHON_KILLS, 1.0 / 400)));
+            new PoissonBinomialDrop(ImmutableList.of(
+                    // pre-buff drop rate
+                    new RollInfo(LogItemSourceInfo.SHELLBANE_GRYPHON_KILLS, 1.0 / 400),
+                    // post-buff drop rate
+                    new RollInfo(LogItemSourceInfo.SHELLBANE_GRYPHON_KILLS, 1.0 / 256),
+                    // post-SECOND-buff drop rate
+                    new RollInfo(LogItemSourceInfo.SHELLBANE_GRYPHON_KILLS, 1.0 / 75)
+            ))
+              .withConfigOption(CollectionLogLuckConfig.SHELLBANE_GRYPHON_KC_PRE_BUFF_KEY)
+              .withConfigOption(CollectionLogLuckConfig.SHELLBANE_GRYPHON_KC_PRE_BUFF2_KEY));
     public static LogItemInfo GRYPHON_FEATHER = new LogItemInfo("Gryphon feather",31235, new MissingKillCountDrop());
     public static LogItemInfo YAMI = new LogItemInfo("Yami",30888, new UnimplementedDrop());
     public static LogItemInfo CHASM_TELEPORT_SCROLL = new LogItemInfo("Chasm teleport scroll",30775, new UnimplementedDrop());
@@ -4422,17 +4441,61 @@ public class LogItemInfo {
     public static LogItemInfo SWIFT_MARLIN = new LogItemInfo("Swift marlin",31428, new MissingKillCountDrop());
     public static LogItemInfo HELMET_OF_THE_MOON = new LogItemInfo("Helmet of the moon",30111, new MissingKillCountDrop());
     public static LogItemInfo SQUID_BEAK = new LogItemInfo("Squid beak",31572, new MissingKillCountDrop());
-    public static LogItemInfo MOOLETA_33101  = new LogItemInfo("Mooleta", 33101,
-            new BinomialDrop(new RollInfo(LogItemSourceInfo.BRUTUS_KILLS, 1.0 / 30, 1 )));
-    public static LogItemInfo BOTTOMLESS_MILK_BUCKET_EMPTY_33091 = new LogItemInfo("Bottomless milk bucket (empty)", 33091,
-            new BinomialDrop(new RollInfo(LogItemSourceInfo.BRUTUS_KILLS, 1.0 / 37.5, 1)));
-    public static LogItemInfo COW_SLIPPERS_33093 = new LogItemInfo("Cow slippers", 33093,
-            new BinomialDrop(new RollInfo(LogItemSourceInfo.BRUTUS_KILLS, 1.0 / 150, 1)));
-    public static LogItemInfo BEEF_33124 = new LogItemInfo("Beef", 33124,
+    public static LogItemInfo MOOLETA  = new LogItemInfo("Mooleta", 33101,
+            new BinomialDrop(new RollInfo(LogItemSourceInfo.BRUTUS_KILLS, 1.0 / 30)));
+    public static LogItemInfo BOTTOMLESS_MILK_BUCKET_EMPTY = new LogItemInfo("Bottomless milk bucket (empty)", 33091,
+            new BinomialDrop(new RollInfo(LogItemSourceInfo.BRUTUS_KILLS, 1.0 / 37.5)));
+    public static LogItemInfo COW_SLIPPERS = new LogItemInfo("Cow slippers", 33093,
+            new BinomialDrop(new RollInfo(LogItemSourceInfo.BRUTUS_KILLS, 1.0 / 150)));
+    public static LogItemInfo BEEF = new LogItemInfo("Beef", 33124,
             new PoissonBinomialDrop(ImmutableList.of(
-                    new RollInfo(LogItemSourceInfo.BRUTUS_KILLS, 1.0 / 1000, 1),
-                    new RollInfo(LogItemSourceInfo.DEMONIC_BRUTUS_KILLS, 1.0 / 400, 1)
-            )));
+                    new RollInfo(LogItemSourceInfo.BRUTUS_KILLS, 1.0 / 1000),
+                    new RollInfo(LogItemSourceInfo.DEMONIC_BRUTUS_KILLS, 1.0 / 400)
+            ))
+                    .withConfigOption(CollectionLogLuckConfig.DEMONIC_BRUTUS_KC_KEY)
+    );
+    public static LogItemInfo PRISTINE_SPIDER_SILK  = new LogItemInfo("Pristine spider silk", 33133,
+            new BinomialDrop(new RollInfo(LogItemSourceInfo.SARACHNIS_KILLS, 1.0 / 50 ))
+                .withConfigOption(CollectionLogLuckConfig.SARACHNIS_KC_BEFORE_PRISTINE_SPIDER_SILK_KEY));
+    public static LogItemInfo BALLISTIC_ATTRACTOR_SCHEMATIC  = new LogItemInfo("Ballistic attractor schematic", 33143,
+            new DeterministicDrop());
+    public static LogItemInfo FACILITY_BOTTLE_EMPTY  = new LogItemInfo("Facility bottle (empty)", 33074,
+            new MissingKillCountDrop());
+
+    public static LogItemInfo MAGGOT_MARQUESS = new LogItemInfo("Maggot marquess", 33642,
+      new PoissonBinomialDrop(ImmutableList.of(
+            new RollInfo(LogItemSourceInfo.MAGGOT_KING_KILLS, 1.0 / 3500),
+            // Sum of all chances of getting a pet from the 6 eggs
+            new RollInfo(LogItemSourceInfo.MAGGOT_KING_KILLS, 1.0 / 1502.4)
+          ))
+        .withConfigOption("Maggot marquess"));
+    public static LogItemInfo CRIMSON_KISTEN = new LogItemInfo("Crimson kisten", 33631,
+      new BinomialDrop(new RollInfo(LogItemSourceInfo.MAGGOT_KING_KILLS, 1.0 / 520))
+        .withConfigOption(CollectionLogLuckConfig.NUM_MAGGOT_KING_EGGS_TAKEN_KEY));
+    public static LogItemInfo ELDER_VENATOR_FANG = new LogItemInfo("Elder venator fang", 33634,
+      new BinomialDrop(new RollInfo(LogItemSourceInfo.MAGGOT_KING_KILLS, 1.0 / 340))
+        .withConfigOption(CollectionLogLuckConfig.NUM_MAGGOT_KING_EGGS_TAKEN_KEY));
+    public static LogItemInfo AGGY = new LogItemInfo("Aggy", 34042,
+      new BinomialDrop(new RollInfo(LogItemSourceInfo.MAD_ANGEL_KILLS, 1.0 / 2000)));
+    public static LogItemInfo HALLOWFELL = new LogItemInfo("Hallowfell", 34027,
+      new BinomialDrop(new RollInfo(LogItemSourceInfo.MAD_ANGEL_KILLS, 1.0 / 127)));
+    public static LogItemInfo ARDEAGLAIS_TELEPORT = new LogItemInfo("Ardeaglais teleport", 34033,
+      new FixedStackDrop(new RollInfo(LogItemSourceInfo.MAD_ANGEL_KILLS, 1.0 / 25), 2));
+    public static LogItemInfo JAR_OF_LIGHT = new LogItemInfo("Jar of Light", 34030,
+      new BinomialDrop(new RollInfo(LogItemSourceInfo.MAD_ANGEL_KILLS, 1.0 / 1000)));
+    public static LogItemInfo IMMACULATE_MOLE_SKIN = new LogItemInfo("Immaculate mole skin", 33382,
+      new BinomialDrop(new RollInfo(LogItemSourceInfo.GIANT_MOLE_KILLS, 1.0 / 50)));
+    public static LogItemInfo MR_MCGROOT = new LogItemInfo("Mr McGroot", 34040, new MissingKillCountDrop());
+    public static LogItemInfo BOSUNS_WORKBENCH_SCHEMATIC = new LogItemInfo("Bosun's workbench schematic", 33423, new DeterministicDrop());
+    public static LogItemInfo NECKLACE_OF_FANGS = new LogItemInfo("Necklace of Fangs", 34401, new MissingKillCountDrop());
+    public static LogItemInfo VENATOR_TOOTH = new LogItemInfo("Venator tooth", 33663, new MissingKillCountDrop());
+    public static LogItemInfo VENATOR_FANG = new LogItemInfo("Venator fang", 33661, new MissingKillCountDrop());
+    public static LogItemInfo AIR_DIAMOND = new LogItemInfo("Air diamond", 34404, new MissingKillCountDrop());
+    public static LogItemInfo WATER_SAPPHIRE = new LogItemInfo("Water sapphire", 34410, new MissingKillCountDrop());
+    public static LogItemInfo EARTH_EMERALD = new LogItemInfo("Earth emerald", 34416, new MissingKillCountDrop());
+    public static LogItemInfo FIRE_RUBY = new LogItemInfo("Fire ruby", 34422, new MissingKillCountDrop());
+    public static LogItemInfo JEWELLERS_CHISEL = new LogItemInfo("Jeweller's chisel", 34024, new MissingKillCountDrop());
+
 
     private final String itemName;
     private final int itemId;

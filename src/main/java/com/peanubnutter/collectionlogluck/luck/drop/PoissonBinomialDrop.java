@@ -1,6 +1,7 @@
 package com.peanubnutter.collectionlogluck.luck.drop;
 
 import com.peanubnutter.collectionlogluck.CollectionLogLuckConfig;
+import com.peanubnutter.collectionlogluck.luck.LogItemInfo;
 import com.peanubnutter.collectionlogluck.model.CollectionLog;
 import com.peanubnutter.collectionlogluck.model.CollectionLogItem;
 import com.peanubnutter.collectionlogluck.model.CollectionLogKillCount;
@@ -49,6 +50,8 @@ public class PoissonBinomialDrop extends AbstractDrop {
         return probabilities;
     }
 
+    // Note numTrials is not really used in here (only to determine which algorithm to use).
+    // TODO: Shouldn't we just use the length of probabilities instead of the numSuccesses || numTrials?
     private double getExactOrApproxCumulativeProbability(int numSuccesses, int numTrials, CollectionLog collectionLog, CollectionLogLuckConfig config) {
         List<Double> probabilities = convertKcToProbabilities(collectionLog, config);
 
@@ -94,6 +97,10 @@ public class PoissonBinomialDrop extends AbstractDrop {
         return 1 - getExactOrApproxCumulativeProbability(maxEquivalentNumSuccesses, numTrials, collectionLog, config);
     }
 
+    // I think this is wrong or potentially risky in some cases.
+    // The number of KC should be modified instead of the total number of rolls, since KC is multiplied by rollsPerKc
+    // before entering this function. I don't think any of these bosses / drops roll more than once, so by chance,
+    // this is fine, but architecture is not ideal.
     private int getNumRollsForCustomDrops(RollInfo rollInfo, int rollInfoIndex, int numRolls, CollectionLogLuckConfig config) {
         if (
                 rollInfo.getDropSource().equals(LogItemSourceInfo.TZTOK_JAD_KILLS)
@@ -181,6 +188,52 @@ public class PoissonBinomialDrop extends AbstractDrop {
             // Phosani's Nightmare kc post-buff
             else if (rollInfoIndex == 3) {
                 return numRolls - Math.max(0, Math.min(numRolls, config.phosanisNightmareKcPreBuff()));
+            }
+        } else if (
+                rollInfo.getDropSource().equals(LogItemSourceInfo.SHELLBANE_GRYPHON_KILLS)
+                        && configOptions.contains(CollectionLogLuckConfig.SHELLBANE_GRYPHON_KC_PRE_BUFF_KEY)
+                        && configOptions.contains(CollectionLogLuckConfig.SHELLBANE_GRYPHON_KC_PRE_BUFF2_KEY)) {
+            // Shellbane Gryphon kc pre-buff (for Belle's Folly).
+            if (rollInfoIndex == 0) {
+                // The player cannot have more pre-buff KC than they have KC
+                return Math.max(0, Math.min(numRolls, config.shellbaneGryphonKcPreBuff()));
+            }
+            // Shellbane Gryphon kc pre-buff 2 (for Belle's Folly).
+            else if (rollInfoIndex == 1) {
+                return Math.max(0, Math.min(numRolls, config.shellbaneGryphonKcPreBuff2()));
+            }
+            // Shellbane Gryphon kc post-buff (for Belle's Folly).
+            else if (rollInfoIndex == 2) {
+                return Math.max(0,
+                  numRolls
+                    - Math.max(0, Math.min(numRolls, config.shellbaneGryphonKcPreBuff()))
+                    - Math.max(0, Math.min(numRolls, config.shellbaneGryphonKcPreBuff2()))
+                );
+            }
+        } else if (
+                // IMPORTANT: Demonic Brutus KC IS factored into the total "Brutus kills" at all. It's completely
+                // missing from the collection log.
+                rollInfo.getDropSource().equals(LogItemSourceInfo.DEMONIC_BRUTUS_KILLS)
+                        && configOptions.contains(CollectionLogLuckConfig.DEMONIC_BRUTUS_KC_KEY)) {
+            // kc cannot be negative
+            int demonicBrutusKc = Math.max(0, config.demonicBrutusKc());
+            // the collection log does not currently track Demonic Brutus KC. If it ever adds the option in the future
+            // and the numRolls starts working (becoming non-zero), it will override the config option automatically.
+            // The config option can then be removed.
+            if (numRolls > 0) {
+                return numRolls;
+            }
+            return demonicBrutusKc;
+        } else if (rollInfo.getDropSource().equals(LogItemSourceInfo.MAGGOT_KING_KILLS)
+              && configOptions.contains(LogItemInfo.MAGGOT_MARQUESS.getItemName())) {
+            // Normal pet chance
+            if (rollInfoIndex == 0) {
+                // The player cannot have more egg attempts than they have KC
+                return numRolls - Math.max(0, Math.min(numRolls, config.numMaggotKingEggsTaken()));
+            }
+            // Pet chance from eggs
+            else if (rollInfoIndex == 1) {
+                return Math.max(0, Math.min(numRolls, config.numMaggotKingEggsTaken()));
             }
         }
 
