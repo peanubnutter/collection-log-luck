@@ -195,6 +195,11 @@ public abstract class AbstractDrop implements DropLuck {
             dropChance *= getToAUniqueChance(config.expertToaUniqueChance());
         }
         else if (
+                rollInfo.getDropSource().equals(LogItemSourceInfo.FRACTURED_ARCHIVE_COMPLETIONS)
+                        && configOptions.contains(CollectionLogLuckConfig.FRACTURED_ARCHIVE_UNIQUE_CHANCE_KEY)) {
+            dropChance *= clampContribution(config.fracturedArchiveUniqueChance());
+        }
+        else if (
                 rollInfo.getDropSource().equals(LogItemSourceInfo.TOMBS_OF_AMASCUT_ENTRY_COMPLETIONS)
                         && configOptions.contains(LogItemInfo.TUMEKENS_GUARDIAN_27352.getItemName())) {
             return getToAPetChance(config.entryToaUniqueChance());

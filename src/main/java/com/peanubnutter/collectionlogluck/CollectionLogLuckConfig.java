@@ -22,6 +22,7 @@ public interface CollectionLogLuckConfig extends Config
 	String ENTRY_TOA_UNIQUE_CHANCE_KEY = "entry_toa_unique_chance";
 	String REGULAR_TOA_UNIQUE_CHANCE_KEY = "regular_toa_unique_chance";
 	String EXPERT_TOA_UNIQUE_CHANCE_KEY = "expert_toa_unique_chance";
+	String FRACTURED_ARCHIVE_UNIQUE_CHANCE_KEY = "fractured_archive_unique_chance";
 	String AVG_NIGHTMARE_TEAM_SIZE_KEY = "avg_nightmare_team_size";
 	String AVG_NIGHTMARE_CONTRIBUTION_KEY = "avg_nightmare_contribution";
 	String AVG_NEX_CONTRIBUTION_KEY = "avg_nex_contribution";
@@ -220,6 +221,18 @@ public interface CollectionLogLuckConfig extends Config
 	default double expertToaUniqueChance()
 	{
 		return 0.0440;
+	}
+
+	@ConfigItem(
+			keyName = FRACTURED_ARCHIVE_UNIQUE_CHANCE_KEY,
+			name = "Fractured Archive Unique Chance",
+			description = "Your average personal chance (0 to 1) of a unique per Fractured Archive completion. Defaults to a deathless 3-man (1/37.5).",
+			position = 17,
+			section = raidsSection
+	)
+	default double fracturedArchiveUniqueChance()
+	{
+		return 0.0267;
 	}
 
 	// ############### Team Bosses section ###############

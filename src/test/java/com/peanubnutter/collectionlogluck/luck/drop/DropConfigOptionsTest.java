@@ -1475,5 +1475,121 @@ public class DropConfigOptionsTest {
         assertEquals(expectedDryness, actualDryness, tolerance);
     }
 
+    @Test
+    public void calculateLuck_FracturedArchive_uniques() {
+        int kc = 100;
+        int numObtained = 1;
+        // Effective rate = 0.03 * (5/15) = 0.01 for Rondache, 0.15 * (1/15) = 0.01 for Obligator
+        double expectedLuck = 0.36603;
+        double expectedDryness = 0.26424;
+        double tolerance = 0.00001;
+
+        CollectionLog mockCollectionLog = CollectionLogLuckTestUtils.getMockCollectionLogWithKc(
+                LogItemSourceInfo.FRACTURED_ARCHIVE_COMPLETIONS.getName(), kc);
+
+        CollectionLogLuckConfig rondacheConfig = new CollectionLogLuckConfig() {
+            @Override
+            public double fracturedArchiveUniqueChance() {
+                return 0.03;
+            }
+        };
+        DropLuck rondacheDrop = LogItemInfo.RONDACHE.getDropProbabilityDistribution();
+        CollectionLogItem rondacheItem = new CollectionLogItem(
+                LogItemInfo.RONDACHE.getItemId(),
+                LogItemInfo.RONDACHE.getItemName(),
+                numObtained,
+                true,
+                0);
+        assertNull(rondacheDrop.getIncalculableReason(rondacheItem, rondacheConfig));
+        assertThat(rondacheDrop.getIncalculableReason(rondacheItem, null),
+                CoreMatchers.containsString(AbstractDrop.INCALCULABLE_MISSING_CONFIG));
+        assertEquals(expectedLuck, rondacheDrop.calculateLuck(rondacheItem, mockCollectionLog, rondacheConfig), tolerance);
+        assertEquals(expectedDryness, rondacheDrop.calculateDryness(rondacheItem, mockCollectionLog, rondacheConfig), tolerance);
+
+        CollectionLogLuckConfig obligatorConfig = new CollectionLogLuckConfig() {
+            @Override
+            public double fracturedArchiveUniqueChance() {
+                return 0.15;
+            }
+        };
+        DropLuck obligatorDrop = LogItemInfo.OBLIGATOR_UNCHARGED.getDropProbabilityDistribution();
+        CollectionLogItem obligatorItem = new CollectionLogItem(
+                LogItemInfo.OBLIGATOR_UNCHARGED.getItemId(),
+                LogItemInfo.OBLIGATOR_UNCHARGED.getItemName(),
+                numObtained,
+                true,
+                0);
+        assertNull(obligatorDrop.getIncalculableReason(obligatorItem, obligatorConfig));
+        assertEquals(expectedLuck, obligatorDrop.calculateLuck(obligatorItem, mockCollectionLog, obligatorConfig), tolerance);
+        assertEquals(expectedDryness, obligatorDrop.calculateDryness(obligatorItem, mockCollectionLog, obligatorConfig), tolerance);
+    }
+
+    @Test
+    public void calculateLuck_FracturedArchive_elementalFragments() {
+        int kc = 28;
+        double tolerance = 0.00001;
+        CollectionLogLuckConfig config = new CollectionLogLuckConfig() {};
+
+        // 2 of 4 fragments obtained
+        List<CollectionLogItem> partialItems = ImmutableList.of(
+                new CollectionLogItem(LogItemInfo.FRAGMENT_OF_WHISPERING_WIND.getItemId(), LogItemInfo.FRAGMENT_OF_WHISPERING_WIND.getItemName(), 1, true, 0),
+                new CollectionLogItem(LogItemInfo.FRAGMENT_OF_DEEP_WATER.getItemId(), LogItemInfo.FRAGMENT_OF_DEEP_WATER.getItemName(), 1, true, 0),
+                new CollectionLogItem(LogItemInfo.FRAGMENT_OF_LIVING_EARTH.getItemId(), LogItemInfo.FRAGMENT_OF_LIVING_EARTH.getItemName(), 0, false, 0),
+                new CollectionLogItem(LogItemInfo.FRAGMENT_OF_BURNING_FIRE.getItemId(), LogItemInfo.FRAGMENT_OF_BURNING_FIRE.getItemName(), 0, false, 0)
+        );
+        CollectionLog partialLog = CollectionLogLuckTestUtils.getMockCollectionLogWithKcsAndItems(
+                ImmutableMap.of(LogItemSourceInfo.FRACTURED_ARCHIVE_COMPLETIONS.getName(), kc),
+                partialItems);
+        for (CollectionLogItem item : partialItems) {
+            DropLuck drop = LogItemInfo.findByItemId(item.getId()).getDropProbabilityDistribution();
+            assertEquals(0.39598, drop.calculateLuck(item, partialLog, config), tolerance);
+            assertEquals(0.32320, drop.calculateDryness(item, partialLog, config), tolerance);
+        }
+
+        // All 4 fragments obtained -> dryness drops to 0
+        List<CollectionLogItem> completeItems = ImmutableList.of(
+                new CollectionLogItem(LogItemInfo.FRAGMENT_OF_WHISPERING_WIND.getItemId(), LogItemInfo.FRAGMENT_OF_WHISPERING_WIND.getItemName(), 1, true, 0),
+                new CollectionLogItem(LogItemInfo.FRAGMENT_OF_DEEP_WATER.getItemId(), LogItemInfo.FRAGMENT_OF_DEEP_WATER.getItemName(), 1, true, 0),
+                new CollectionLogItem(LogItemInfo.FRAGMENT_OF_LIVING_EARTH.getItemId(), LogItemInfo.FRAGMENT_OF_LIVING_EARTH.getItemName(), 1, true, 0),
+                new CollectionLogItem(LogItemInfo.FRAGMENT_OF_BURNING_FIRE.getItemId(), LogItemInfo.FRAGMENT_OF_BURNING_FIRE.getItemName(), 1, true, 0)
+        );
+        CollectionLog completeLog = CollectionLogLuckTestUtils.getMockCollectionLogWithKcsAndItems(
+                ImmutableMap.of(LogItemSourceInfo.FRACTURED_ARCHIVE_COMPLETIONS.getName(), kc),
+                completeItems);
+        for (CollectionLogItem item : completeItems) {
+            DropLuck drop = LogItemInfo.findByItemId(item.getId()).getDropProbabilityDistribution();
+            assertEquals(0.86402, drop.calculateLuck(item, completeLog, config), tolerance);
+            assertEquals(0.0, drop.calculateDryness(item, completeLog, config), tolerance);
+        }
+    }
+
+    @Test
+    public void calculateLuck_FracturedArchive_folioAndPet() {
+        double tolerance = 0.00001;
+        CollectionLogLuckConfig config = new CollectionLogLuckConfig() {};
+
+        // Archivist's folio (inert): finite max 1 at 1/15
+        CollectionLog folioLog = CollectionLogLuckTestUtils.getMockCollectionLogWithKc(
+                LogItemSourceInfo.FRACTURED_ARCHIVE_COMPLETIONS.getName(), 15);
+        DropLuck folioDrop = LogItemInfo.ARCHIVISTS_FOLIO_INERT.getDropProbabilityDistribution();
+        CollectionLogItem folioObtained = new CollectionLogItem(
+                LogItemInfo.ARCHIVISTS_FOLIO_INERT.getItemId(), LogItemInfo.ARCHIVISTS_FOLIO_INERT.getItemName(), 1, true, 0);
+        CollectionLogItem folioMissing = new CollectionLogItem(
+                LogItemInfo.ARCHIVISTS_FOLIO_INERT.getItemId(), LogItemInfo.ARCHIVISTS_FOLIO_INERT.getItemName(), 0, false, 0);
+        assertEquals(0.35526, folioDrop.calculateLuck(folioObtained, folioLog, config), tolerance);
+        assertEquals(0.0, folioDrop.calculateDryness(folioObtained, folioLog, config), tolerance);
+        assertEquals(0.0, folioDrop.calculateLuck(folioMissing, folioLog, config), tolerance);
+        assertEquals(0.64474, folioDrop.calculateDryness(folioMissing, folioLog, config), tolerance);
+
+        // Orion pet: flat 1/750
+        CollectionLog petLog = CollectionLogLuckTestUtils.getMockCollectionLogWithKc(
+                LogItemSourceInfo.FRACTURED_ARCHIVE_COMPLETIONS.getName(), 750);
+        DropLuck petDrop = LogItemInfo.ORION.getDropProbabilityDistribution();
+        CollectionLogItem petItem = new CollectionLogItem(
+                LogItemInfo.ORION.getItemId(), LogItemInfo.ORION.getItemName(), 1, true, 0);
+        assertEquals(0.36763, petDrop.calculateLuck(petItem, petLog, config), tolerance);
+        assertEquals(0.26424, petDrop.calculateDryness(petItem, petLog, config), tolerance);
+    }
+
 
 }

@@ -4496,6 +4496,60 @@ public class LogItemInfo {
     public static LogItemInfo FIRE_RUBY = new LogItemInfo("Fire ruby", 34422, new MissingKillCountDrop());
     public static LogItemInfo JEWELLERS_CHISEL = new LogItemInfo("Jeweller's chisel", 34024, new MissingKillCountDrop());
 
+    // The Fractured Archive
+    public static LogItemInfo ORION = new LogItemInfo("Orion", 34646,
+            new BinomialDrop(new RollInfo(LogItemSourceInfo.FRACTURED_ARCHIVE_COMPLETIONS, 1.0 / 750)));
+    public static LogItemInfo OBLIGATOR_UNCHARGED = new LogItemInfo("Obligator (uncharged)", 34717,
+            new BinomialDrop(new RollInfo(LogItemSourceInfo.FRACTURED_ARCHIVE_COMPLETIONS, 1.0 / 15))
+                    .withConfigOption(CollectionLogLuckConfig.FRACTURED_ARCHIVE_UNIQUE_CHANCE_KEY));
+    public static LogItemInfo ASCENSION_CROSSBOWS = new LogItemInfo("Ascension crossbows", 34681,
+            new BinomialDrop(new RollInfo(LogItemSourceInfo.FRACTURED_ARCHIVE_COMPLETIONS, 2.0 / 15))
+                    .withConfigOption(CollectionLogLuckConfig.FRACTURED_ARCHIVE_UNIQUE_CHANCE_KEY));
+    public static LogItemInfo ZORYAS_TOME_UNCHARGED = new LogItemInfo("Zorya's tome (uncharged)", 34727,
+            new BinomialDrop(new RollInfo(LogItemSourceInfo.FRACTURED_ARCHIVE_COMPLETIONS, 4.0 / 15))
+                    .withConfigOption(CollectionLogLuckConfig.FRACTURED_ARCHIVE_UNIQUE_CHANCE_KEY));
+    public static LogItemInfo RONDACHE = new LogItemInfo("Rondache", 34719,
+            new BinomialDrop(new RollInfo(LogItemSourceInfo.FRACTURED_ARCHIVE_COMPLETIONS, 5.0 / 15))
+                    .withConfigOption(CollectionLogLuckConfig.FRACTURED_ARCHIVE_UNIQUE_CHANCE_KEY));
+    public static LogItemInfo HORN_OF_BRAN = new LogItemInfo("Horn of Bran", 34679,
+            new BinomialDrop(new RollInfo(LogItemSourceInfo.FRACTURED_ARCHIVE_COMPLETIONS, 3.0 / 15))
+                    .withConfigOption(CollectionLogLuckConfig.FRACTURED_ARCHIVE_UNIQUE_CHANCE_KEY));
+    public static LogItemInfo FRAGMENT_OF_WHISPERING_WIND = new LogItemInfo("Fragment of whispering wind", 34675,
+            new InterchangeableSetFiniteBinomialDrop(
+                    new RollInfo(LogItemSourceInfo.FRACTURED_ARCHIVE_COMPLETIONS, 1.0 / 14),
+                    ImmutableList.of(34671, 34673, 34675, 34677),
+                    4));
+    public static LogItemInfo FRAGMENT_OF_BURNING_FIRE = new LogItemInfo("Fragment of burning fire", 34677,
+            new InterchangeableSetFiniteBinomialDrop(
+                    new RollInfo(LogItemSourceInfo.FRACTURED_ARCHIVE_COMPLETIONS, 1.0 / 14),
+                    ImmutableList.of(34671, 34673, 34675, 34677),
+                    4));
+    public static LogItemInfo FRAGMENT_OF_DEEP_WATER = new LogItemInfo("Fragment of deep water", 34673,
+            new InterchangeableSetFiniteBinomialDrop(
+                    new RollInfo(LogItemSourceInfo.FRACTURED_ARCHIVE_COMPLETIONS, 1.0 / 14),
+                    ImmutableList.of(34671, 34673, 34675, 34677),
+                    4));
+    public static LogItemInfo FRAGMENT_OF_LIVING_EARTH = new LogItemInfo("Fragment of living earth", 34671,
+            new InterchangeableSetFiniteBinomialDrop(
+                    new RollInfo(LogItemSourceInfo.FRACTURED_ARCHIVE_COMPLETIONS, 1.0 / 14),
+                    ImmutableList.of(34671, 34673, 34675, 34677),
+                    4));
+    // Obtainable both from raid chests (with 1/51 5x multiplier) and by mining ascension rocks outside the raid.
+    public static LogItemInfo ASCENSION_SHARDS = new LogItemInfo("Ascension shards", 34669,
+            new MissingKillCountDrop());
+    public static LogItemInfo ARCHIVISTS_FOLIO_INERT = new LogItemInfo("Archivist's folio (inert)", 34722,
+            new FiniteBinomialDrop(new RollInfo(LogItemSourceInfo.FRACTURED_ARCHIVE_COMPLETIONS, 1.0 / 15), 1));
+    public static LogItemInfo LIVING_RECORD_TIER_1 = new LogItemInfo("Living record (tier 1)", 34659,
+            new DeterministicDrop());
+    public static LogItemInfo LIVING_RECORD_TIER_2 = new LogItemInfo("Living record (tier 2)", 34661,
+            new DeterministicDrop());
+    public static LogItemInfo LIVING_RECORD_TIER_3 = new LogItemInfo("Living record (tier 3)", 34663,
+            new DeterministicDrop());
+    public static LogItemInfo LIVING_RECORD_TIER_4 = new LogItemInfo("Living record (tier 4)", 34665,
+            new DeterministicDrop());
+    public static LogItemInfo LIVING_RECORD_TIER_5 = new LogItemInfo("Living record (tier 5)", 34667,
+            new DeterministicDrop());
+
 
     private final String itemName;
     private final int itemId;

@@ -37,6 +37,7 @@ public enum LogItemSourceInfo {
     DUKE_SUCELLUS_KILLS("Duke Sucellus kills"),
     EASY_CLUES_COMPLETED("Easy clues completed"),
     ELITE_CLUES_COMPLETED("Elite clues completed"),
+    FRACTURED_ARCHIVE_COMPLETIONS("Fractured Archive completions"),
     GAUNTLET_COMPLETION_COUNT("Gauntlet completion count"),
     GENERAL_GRAARDOR_KILLS("General Graardor kills"),
     GIANT_MOLE_KILLS("Giant Mole kills"),

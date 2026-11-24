@@ -272,6 +272,14 @@ public final class CollectionLogItemAliases
             case "pet scurry":
                 return LogItemInfo.SCURRY_28801.getItemName();
 
+            case "tfa pet":
+            case "pet tfa":
+            case "fractured archive pet":
+            case "pet fractured archive":
+            case "archive pet":
+            case "ocellus pet":
+                return LogItemInfo.ORION.getItemName();
+
             default:
                 return backupFuzzyMatch(aliasNameRaw);
         }

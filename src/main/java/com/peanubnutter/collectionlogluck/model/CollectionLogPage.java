@@ -220,6 +220,11 @@ public class CollectionLogPage
 			case "raids 3":
 			case "tomb of amascut":
 				return "Tombs of Amascut";
+			case "tfa":
+			case "fractured archive":
+			case "archive":
+			case "raids 4":
+				return "The Fractured Archive";
 
 			// Clues Tab
 			case "begs":
