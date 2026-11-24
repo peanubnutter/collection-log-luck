@@ -11,7 +11,8 @@ public class NormalDistributionTest {
     public void standardNormal_referenceValues() {
         NormalDistribution dist = new NormalDistribution();
 
-        // Exact reference values across all three Cody intervals (|z/sqrt(2)| <= 0.46875, <= 4, > 4)
+        // Double-precision reference values (Python math.erfc / math.exp) across all three Cody intervals
+        // (|z/sqrt(2)| <= 0.46875, <= 4, > 4)
         double[][] cases = {
                 // { z, expectedCdf, expectedPdf }
                 {-10.0, 7.61985302416059451e-24, 7.69459862670641994e-23},
@@ -42,8 +43,8 @@ public class NormalDistributionTest {
             double actualCdf = dist.cumulativeProbability(z);
             double actualPdf = dist.density(z);
 
-            assertEquals("CDF mismatch at z=" + z, expectedCdf, actualCdf, Math.max(1e-15, expectedCdf * 1e-13));
-            assertEquals("PDF mismatch at z=" + z, expectedPdf, actualPdf, Math.max(1e-15, expectedPdf * 1e-13));
+            assertEquals("CDF mismatch at z=" + z, expectedCdf, actualCdf, expectedCdf * 1e-12);
+            assertEquals("PDF mismatch at z=" + z, expectedPdf, actualPdf, expectedPdf * 1e-12);
         }
     }
 

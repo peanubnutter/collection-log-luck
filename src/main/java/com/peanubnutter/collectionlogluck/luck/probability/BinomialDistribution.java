@@ -103,6 +103,12 @@ public class BinomialDistribution {
         if (probabilityOfSuccess == 1.0) {
             return 0.0;
         }
+        if (x == 0) {
+            return Math.exp(numberOfTrials * Math.log1p(-probabilityOfSuccess));
+        }
+        if (x == numberOfTrials - 1) {
+            return -Math.expm1(numberOfTrials * Math.log(probabilityOfSuccess));
+        }
 
         // P(X <= x) = I_{1 - p}(n - x, x + 1) = 1 - I_p(x + 1, n - x).
         // Use the symmetry branch where the continued fraction converges fastest:
@@ -171,6 +177,9 @@ public class BinomialDistribution {
 
             // Even step: d_{2m} = m * (b - m) * z / ((a + 2m - 1) * (a + 2m))
             double aa = (m * (b - m) * z) / ((qam + m2) * (a + m2));
+            if (aa == 0.0) {
+                break;
+            }
             d = 1.0 + aa * d;
             if (Math.abs(d) < CF_TINY) {
                 d = CF_TINY;
