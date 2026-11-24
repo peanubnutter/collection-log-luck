@@ -73,12 +73,10 @@ public class CollectionLogLuckPlugin extends Plugin {
             "CLog Luck - warning: collectionlog.net has shut down. Text commands are disabled until further notice.";
 
     // Make sure to update this version to show the plugin message below.
-    private final String pluginVersion = "v1.2.4";
+    private final String pluginVersion = "v1.2.5";
     private final String pluginMessage = "<colHIGHLIGHT>Collection Log Luck " + pluginVersion + ":<br>" +
-                                           "<colHIGHLIGHT>* Support Mad Angel and Maggot King<br>" +
-                                           "<colHIGHLIGHT>* Support Immaculate Mole Skin<br>" +
-                                           "<colHIGHLIGHT>* Update Shellbane Gryphon drop rates AGAIN<br>" +
-                                           "<colHIGHLIGHT>* Configure your KC in the settings panel.<br>";
+                                           "<colHIGHLIGHT>* Support The Fractured Archive<br>" +
+                                           "<colHIGHLIGHT>* Configure your unique chance in the settings panel.<br>";
 
     private Map<Integer, Integer> loadedCollectionLogIcons;
 
