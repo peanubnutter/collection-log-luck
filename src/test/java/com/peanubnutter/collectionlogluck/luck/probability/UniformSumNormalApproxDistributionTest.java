@@ -1,7 +1,6 @@
 package com.peanubnutter.collectionlogluck.luck.probability;
 
 import com.google.common.collect.ImmutableList;
-import org.apache.commons.math3.distribution.NormalDistribution;
 import org.junit.Test;
 
 import java.util.List;

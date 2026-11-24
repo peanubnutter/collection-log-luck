@@ -4,8 +4,8 @@ import com.peanubnutter.collectionlogluck.CollectionLogLuckConfig;
 import com.peanubnutter.collectionlogluck.model.CollectionLog;
 import com.peanubnutter.collectionlogluck.model.CollectionLogItem;
 import com.peanubnutter.collectionlogluck.luck.RollInfo;
+import com.peanubnutter.collectionlogluck.luck.probability.BinomialDistribution;
 import com.google.common.collect.ImmutableList;
-import org.apache.commons.math3.distribution.BinomialDistribution;
 
 import java.util.List;
 

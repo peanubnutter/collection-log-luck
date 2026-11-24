@@ -1,7 +1,6 @@
 package com.peanubnutter.collectionlogluck.luck.probability;
 
 import com.google.common.collect.ImmutableList;
-import org.apache.commons.math3.distribution.BinomialDistribution;
 
 // This class approximates the distribution of receiving a given amount of loot when there is both a drop chance and a
 // quantity range. The PDF is computed by multiplying the binomial chance of every possible number of successes X

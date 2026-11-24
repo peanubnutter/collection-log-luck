@@ -1,7 +1,5 @@
 package com.peanubnutter.collectionlogluck.luck.probability;
 
-import org.apache.commons.math3.distribution.NormalDistribution;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;

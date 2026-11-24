@@ -2,22 +2,20 @@
 
 ## Project Overview
 
-**Collection Log Luck** is a [RuneLite](https://runelite.net/) plugin (Java 8 source compatibility, Gradle 6.2) that calculates and displays luck/dryness percentiles for Old School RuneScape collection log items directly on the in-game Collection Log interface and via item "Check" chat messages.
+**Collection Log Luck** is a [RuneLite](https://runelite.net/) plugin (Java 11 release target, Gradle 8.10, `build=standard`) that calculates and displays luck/dryness percentiles for Old School RuneScape collection log items directly on the in-game Collection Log interface and via item "Check" chat messages.
 
 - **Standalone mode note**: `collectionlog.net` has shut down. Local player item counts and kill counts are cached directly from in-game Collection Log pages (`ScriptID.COLLECTION_DRAW_LIST`). Do not assume `collectionlog.net` is reachable for live `!luck` lookups unless re-enabled.
-- **Dependencies**: Uses `org.apache.commons:commons-math3:3.0`, Lombok, and RuneLite `client` (`latest.release` from `https://repo.runelite.net`). Because of `commons-math3`, `runelite-plugin.properties` must retain `build=gradle`.
+- **Dependencies**: Uses only standard RuneLite Plugin Hub dependencies (`net.runelite:client`, Lombok, JetBrains annotations). Statistical distributions (`BinomialDistribution`, `NormalDistribution`) are self-contained in `luck/probability/`, allowing `runelite-plugin.properties` to use `build=standard`.
 
 ## Build & Test
 
-Gradle 6.2 requires **JDK 11** (JDK 17+ will fail to run the wrapper). Ensure `JAVA_HOME` points to a JDK 11 installation before invoking Gradle.
+Uses Gradle 8.10 with `options.release.set(11)` (works on JDK 11 and JDK 17+).
 
 ```powershell
-# PowerShell example (adjust path to your local JDK 11)
-$env:JAVA_HOME = "$env:USERPROFILE\.jdks\temurin-11.0.29"
-$env:PATH = "$env:JAVA_HOME\bin;$env:PATH"
 .\gradlew.bat test --no-daemon
 ```
 
+- Run the plugin locally in RuneLite developer mode via `.\gradlew.bat run` (or the `application > run` Gradle task in IntelliJ).
 - Always run the full unit test suite (`test`) after modifying drop mechanics, probability distributions, config options, or utilities.
 - `src/test/java/com/peanubnutter/collectionlogluck/CollectionLogLuckPluginTest.java` is a manual dev launcher (`main` method) that boots RuneLite with this plugin loaded—it is not a JUnit test case.
 

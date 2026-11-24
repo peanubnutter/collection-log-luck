@@ -1,7 +1,6 @@
 package com.peanubnutter.collectionlogluck.luck.probability;
 
 import com.google.common.collect.ImmutableList;
-import org.apache.commons.math3.distribution.NormalDistribution;
 
 // This distribution approximates the distribution of summing N identical uniform distributions after succeeding in
 // N Bernoulli trials by using a normal distribution with appropriate mean and standard deviation.

@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.client.util.Text;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -35,7 +34,7 @@ public class CollectionLog
 
     public CollectionLogPage searchForPage(String pageName)
     {
-        if (StringUtils.isEmpty(pageName))
+        if (pageName == null || pageName.isEmpty())
         {
             return null;
         }
@@ -54,7 +53,7 @@ public class CollectionLog
     }
 
     public CollectionLogItem searchForItem(String itemName) {
-        if (StringUtils.isEmpty(itemName)) {
+        if (itemName == null || itemName.isEmpty()) {
             return null;
         }
 
@@ -83,7 +82,7 @@ public class CollectionLog
     }
 
     public CollectionLogKillCount searchForKillCount(String killCountName) {
-        if (StringUtils.isEmpty(killCountName)) {
+        if (killCountName == null || killCountName.isEmpty()) {
             return null;
         }
 

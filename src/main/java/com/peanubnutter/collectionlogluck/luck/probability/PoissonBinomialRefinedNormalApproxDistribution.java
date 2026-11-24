@@ -1,7 +1,5 @@
 package com.peanubnutter.collectionlogluck.luck.probability;
 
-import org.apache.commons.math3.distribution.NormalDistribution;
-
 import java.util.List;
 
 // An implementation of the Poisson Binomial Distribution using the Refined Normal Approximation method based on
@@ -53,12 +51,12 @@ public class PoissonBinomialRefinedNormalApproxDistribution extends AbstractCust
 
     // the cumulative distribution function (CDF) of the standard normal distribution
     protected double normalCdf(double x) {
-        return new NormalDistribution().cumulativeProbability(x);
+        return NormalDistribution.STANDARD.cumulativeProbability(x);
     }
 
     // the probability density function (PDF) of the standard normal distribution
     protected double normalPdf(double x) {
-        return new NormalDistribution().density(x);
+        return NormalDistribution.STANDARD.density(x);
     }
 
     protected double refinedNormalApproximation(int x) {

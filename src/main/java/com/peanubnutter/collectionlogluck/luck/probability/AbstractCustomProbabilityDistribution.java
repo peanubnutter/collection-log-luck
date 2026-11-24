@@ -1,7 +1,5 @@
 package com.peanubnutter.collectionlogluck.luck.probability;
 
-import org.apache.commons.math3.exception.OutOfRangeException;
-
 import java.util.List;
 
 abstract class AbstractCustomProbabilityDistribution {
@@ -10,8 +8,8 @@ abstract class AbstractCustomProbabilityDistribution {
 
     public AbstractCustomProbabilityDistribution(List<Double> probabilities) {
         for (double p : probabilities) {
-            if (p < 0 || p > 1) {
-                throw new OutOfRangeException(p, 0, 1);
+            if (p < 0 || p > 1 || Double.isNaN(p)) {
+                throw new IllegalArgumentException("Probability out of range [0, 1]: " + p);
             }
         }
 
